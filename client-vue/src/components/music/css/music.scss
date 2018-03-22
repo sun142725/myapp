@@ -1,0 +1,23 @@
+.music-banner{
+  height:3rem;
+  @include random;
+}
+.ranking{
+  width:100%;
+  height:calc(100% - 3.88rem);
+  overflow-y: auto;
+  li{
+    display: flex;
+    .pic-box{
+      width:1rem;
+      img{
+        display: block;
+        width: 100%;
+      }
+    }
+    span{
+      display: block;
+      text-align: left;
+    }
+  }
+}

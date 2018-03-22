@@ -1,0 +1,15 @@
+ul.nav{
+  width:100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  li{
+    flex:1;
+    height:100%;
+    a{
+      @include center;
+      @include rect(100%, 100%);
+      font-size: 0.24rem;
+    }
+  }
+}

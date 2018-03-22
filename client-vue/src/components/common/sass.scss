@@ -1,0 +1,147 @@
+@mixin top-bottom {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+@mixin left-right {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+@mixin position-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+@mixin position-center2 {
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+@mixin position-cen{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+@mixin rect($w,$h) {
+  width: $w;
+  height: $h;
+}
+
+@mixin z($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin y($size) {
+  @include z($size);
+  border-radius: 50%;
+}
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin white-color($p) {
+  color: rgba(255, 255, 255, $p);
+}
+@mixin border-radius($a){
+  border-radius:$a;
+}
+@mixin box-shadow(){
+  box-shadow: 0 0 0.2rem 0.01rem rgba(255,196,0,0.45);
+}
+@mixin pop-background{
+  //display: inline-block;
+  background: rgba(0,0,0,0.8);
+  font-size: 0.28rem;
+  color:#fff;
+  padding: 0 0.32rem;
+  width: auto;
+  //min-width: 2.4rem;
+  height:0.8rem;
+  border-radius:0.08rem;
+  text-align: center;
+  line-height: 0.8rem;
+  @include position-cen();
+}
+
+@mixin random {
+  $r: ceil(random()*256);
+  $g: ceil(random()*256);
+  $b: ceil(random()*256);
+  background: rgba($r, $g, $b, 0.4);
+}
+
+@mixin child($s,$n:20) {
+  @for $i from 1 through $n {
+    #{$s}:nth-child(#{$i}) {
+      @include random
+    }
+  }
+}
+
+@mixin rem($size:750px) {
+  $d-list: 320px, 360px, 375px, 384px, 412px, 414px, 600px, $size;
+  @each $v in $d-list {
+    @media screen and(min-width: #{$v}) {
+      html {
+        font-size: 100px * ($v / $size);
+      }
+    }
+  }
+}
+
+@mixin grid($number:12) {
+  .row {
+    position: relative;
+    &::after {
+      content: '';
+      clear: both;
+      display: block;
+    }
+  }
+
+  %col {
+    float: left;
+    min-height: 1px;
+  }
+
+  @for $i from 1 through $number {
+    .col-sm-#{$i} {
+      @extend %col;
+      width: percentage($i/$number)
+    }
+    .col-md-#{$i}, .col-lg-#{$i} {
+      @extend %col;
+    }
+  }
+
+  @media screen and (min-width: 650px) {
+    @for $i from 1 through $number {
+      .col-md-#{$i} {
+        width: percentage($i/$number)
+      }
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    @for $i from 1 through $number {
+      .col-lg-#{$i} {
+        width: percentage($i/$number)
+      }
+    }
+  }
+}
