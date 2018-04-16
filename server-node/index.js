@@ -4,20 +4,17 @@ var server = require('http').Server(app)
 var io = require('socket.io')(server, {
     pingInterval: 1000
 })
-var db = require('./mongo')
 const bodyParser = require('body-parser');
 const cookie = require('cookie');
+var resfn = require('./public/function')
 var router = require('./router')
 var socket = require('./socket')
+// const jwt = require("jsonwebtoken");
+// app.use(require("./jwtMiddleware")());
+// const token = jwt.sign({ id: _id }, key, {
+//     expiresIn: 60 * 60 * 24 * 7
+// });
 
-// 连接成功
-db.on('open', function(){
-    console.log('MongoDB Connection Successed');
-});
-// 连接失败
-db.on('error', function(){
-    console.log('MongoDB Connection Error');
-});
 
 
 app.use(express.static('./public'));
@@ -33,11 +30,15 @@ app.all('*', function(req, res, next) {
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
-
+app.use(function(req, res, next){
+    //  路由拦截验证token
+    console.log(req.url)
+    next()
+})
 app.get('/', function(req, res){
     res.sendFile(__dirname+'/index.html')
 })
-router(app)
+router(app, resfn)
 socket(io)
 
 server.listen(666, function(){

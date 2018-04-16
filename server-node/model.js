@@ -1,3 +1,4 @@
+require('./mongo')
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var user = new Schema({
@@ -13,7 +14,10 @@ var user = new Schema({
     },
     createAt: {
         type: Date,
-        ddefault: Date.now()
+        default: Date.now()
     }
-})
-module.exports = mongoose.model('user', user)
+},{ collection: 'user'})
+
+module.exports = {
+    user: mongoose.model('user', user)
+}

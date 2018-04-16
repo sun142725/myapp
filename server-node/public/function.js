@@ -1,6 +1,6 @@
 function resfn(code, data, msg, page={}) {
     return {
-        'code': code || 500,
+        'code': code || 0,
         'data': data || {},
         'msg': msg,
         'pageInfo': {
