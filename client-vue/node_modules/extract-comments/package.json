@@ -1,0 +1,73 @@
+{
+  "name": "extract-comments",
+  "description": "Uses esprima to extract line and block comments from a string of JavaScript. Also optionally parses code context (the next line of code after a comment).",
+  "version": "0.10.1",
+  "homepage": "https://github.com/jonschlinkert/extract-comments",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/extract-comments",
+  "bugs": {
+    "bugs": "https://github.com/jonschlinkert/extract-comments/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "lib/"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "scripts": {
+    "test": "gulp"
+  },
+  "dependencies": {
+    "define-property": "^0.2.5",
+    "esprima-extract-comments": "^0.2.1",
+    "extend-shallow": "^2.0.1",
+    "parse-code-context": "^0.2.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^1.1.1",
+    "gulp-format-md": "^0.1.4",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-mocha": "^2.2.0",
+    "mocha": "*",
+    "should": "*",
+    "time-diff": "^0.1.0"
+  },
+  "keywords": [
+    "ast",
+    "block",
+    "code",
+    "comment",
+    "comments",
+    "context",
+    "esprima",
+    "extract",
+    "glob",
+    "javascript",
+    "line",
+    "parse",
+    "tokenize",
+    "tokens"
+  ],
+  "verb": {
+    "related": {
+      "list": [
+        "code-context",
+        "esprima-extract-comments",
+        "parse-comments"
+      ],
+      "description": ""
+    },
+    "deps": {
+      "ignore": [
+        "fixtures"
+      ]
+    },
+    "plugins": [
+      "gulp-format-md"
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "strip-comments",
+  "description": "Strip comments from code. Removes line comments, block comments, the first comment only, or all comments. Optionally leave protected comments unharmed.",
+  "version": "0.4.4",
+  "homepage": "https://github.com/jonschlinkert/strip-comments",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/strip-comments",
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/strip-comments/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "extend-shallow": "^2.0.1",
+    "extract-comments": "^0.10.1"
+  },
+  "devDependencies": {
+    "gulp-format-md": "^0.1.5",
+    "mocha": "*"
+  },
+  "keywords": [
+    "block",
+    "comment",
+    "comments",
+    "expressions",
+    "line",
+    "protected",
+    "re",
+    "regex",
+    "regexp",
+    "regular",
+    "remove",
+    "strip"
+  ],
+  "verb": {
+    "toc": true,
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "related": {
+      "list": [
+        "code-context",
+        "esprima-extract-comments",
+        "extract-comments",
+        "js-comments",
+        "parse-code-context",
+        "parse-comments",
+        "snapdragon"
+      ]
+    }
+  }
+}

@@ -6,18 +6,60 @@
   width:100%;
   height:calc(100% - 3.88rem);
   overflow-y: auto;
+  padding-top: 0.24rem;
+  background: #f4f4f4;
   li{
-    display: flex;
+    background: #fff;
+    margin-bottom: 0.24rem;
+    a{
+      display: flex;
+      box-sizing: border-box;
+      padding: 0 0.24rem;
+      color:#333;
+      font-size: 12px;
+      align-items: center;
+    }
     .pic-box{
-      width:1rem;
+      width:100px;
+      height: 2rem;
+      overflow: hidden;
       img{
         display: block;
-        width: 100%;
+        width: 100px;
+        height:100px;
       }
+    }
+    h6{
+      font-size: 18px;
+    }
+    .rank-R{
+      width: calc(100% - 100px);
+      padding-left: 0.24rem;
     }
     span{
       display: block;
       text-align: left;
+    }
+  }
+  &.nobanner{
+    height:calc(100% - 44px);
+    li{
+      margin: 0;
+      height: 50px;
+      &:first-of-type,&:nth-of-type(2),&:nth-of-type(3){
+        div{
+          color:#f65a41;
+        }
+      }
+      h6{
+        text-align: left;
+        font-size: 18px;
+        font-weight: normal;
+        color:#333;
+      }
+      span{
+        color:#9b9c9f;
+      }
     }
   }
 }

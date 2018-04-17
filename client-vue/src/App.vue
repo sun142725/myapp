@@ -11,8 +11,9 @@ export default {
   components: {UnderNav}
 }
 </script>
-
-<style lang="scss">
+<style lang="less">
+  @import '~vux/src/styles/reset.less';
+  @import '~vux/src/styles/1px.less';
 html,body{
   width:100%;
   height:100%;

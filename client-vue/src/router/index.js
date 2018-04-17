@@ -9,6 +9,7 @@ import BHome from '@/components/Home'
 import Home from '@/components/home/home'
 //  音乐
 import Music from '@/components/music/music'
+import MusicList from '@/components/music/musicList'
 import MusicPlay from '@/components/music/music_play'
 //  聊天
 import Chat from '@/components/chat/chat'
@@ -74,8 +75,16 @@ const router = new Router({
     {
       path: '/music',
       name: 'music',
-      component: Music,
-      children: []
+      component: Music
+    },
+    {
+      path: '/musiclist',
+      name: 'musiclist',
+      component: MusicList
+    },
+    {
+      path: '/music/search',
+      name: 'mSearch'
     },
     {
       path: '/music_play',
