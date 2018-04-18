@@ -9,6 +9,7 @@ const cookie = require('cookie');
 var resfn = require('./public/function')
 var router = require('./router')
 var socket = require('./socket')
+var request = require('request')
 // const jwt = require("jsonwebtoken");
 // app.use(require("./jwtMiddleware")());
 // const token = jwt.sign({ id: _id }, key, {
@@ -17,7 +18,8 @@ var socket = require('./socket')
 
 
 
-app.use(express.static('./public'));
+// app.use(express.static('./public'));
+app.use('/public', express.static(__dirname + '/public'))
 //  获取post请求数据
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -41,6 +43,26 @@ app.get('/', function(req, res){
 router(app, resfn)
 socket(io)
 
+function downloadlyric(song){
+    request.post({
+        url:'http://music.163.com/api/search/pc',
+        form:{s:song,type:1}
+    },(err,res,body)=>{
+        // https://music.163.com/api/song/luric?id=1231&lv=-1&kv=-1
+        let data =JSON.parse(body).result.songs[0];
+        let id=data.id;
+        let name = data.name;
+        request.get(`https://music.163.com/api/song/lyric?id=${id}&lv=-1&kv=-1`,(err,res,body)=>{
+            if(err){
+                console.log(err.Message)
+            }
+            fs.writeFile(`./${name}.json`,body,()=>{
+                console.log(`${name}.json文件下载成功`)
+            })
+        })
+    });
+}
+// downloadlyric('纸短情长')
 server.listen(666, function(){
     console.log('服务器在666端口启动')
 })

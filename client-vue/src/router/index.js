@@ -11,6 +11,7 @@ import Home from '@/components/home/home'
 import Music from '@/components/music/music'
 import MusicList from '@/components/music/musicList'
 import MusicPlay from '@/components/music/music_play'
+import MusicSearch from '@/components/music/music_search'
 //  聊天
 import Chat from '@/components/chat/chat'
 import Chatroom from '@/components/chat/chatRoom'
@@ -84,7 +85,8 @@ const router = new Router({
     },
     {
       path: '/music/search',
-      name: 'mSearch'
+      name: 'mSearch',
+      component: MusicSearch
     },
     {
       path: '/music_play',

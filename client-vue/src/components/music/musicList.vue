@@ -4,7 +4,7 @@
             <x-header :left-options="{backText: ''}">{{detail.title}} <span slot="right">共{{detail.number || 0}}首</span></x-header>
             <ul class="ranking nobanner">
                 <li v-for="(v, i) in rankList" :key="i">
-                    <router-link :to="{name: 'music_play', query: {songmid: v.data.songmid}}">
+                    <router-link :to="{name: 'music_play', query: {songmid: v.data.songmid,songid: v.data.songid, name: v.data.albumname}}">
                         <div style="font-size: 14px;">{{i+1}}</div>
                         <div class="rank-R">
                             <h6>{{v.data.albumname}}</h6>
