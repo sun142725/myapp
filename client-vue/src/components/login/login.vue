@@ -39,7 +39,7 @@ export default {
             })
           } else {
             this.$vux.toast.show({
-              text: ' hellowworld ',
+              text: data.msg,
               type: 'text'
             })
           }

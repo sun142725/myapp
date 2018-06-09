@@ -9,12 +9,8 @@ const cookie = require('cookie');
 var resfn = require('./public/function')
 var router = require('./router')
 var socket = require('./socket')
-var request = require('request')
-// const jwt = require("jsonwebtoken");
-// app.use(require("./jwtMiddleware")());
-// const token = jwt.sign({ id: _id }, key, {
-//     expiresIn: 60 * 60 * 24 * 7
-// });
+// var request = require('request')
+
 
 
 
@@ -32,10 +28,14 @@ app.all('*', function(req, res, next) {
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
+const PERSONAL = 'personal_enter'
 app.use(function(req, res, next){
     //  路由拦截验证token
-    console.log(req.url)
-    next()
+    if(req.url.split('/')[1] === PERSONAL){
+
+    } else {
+        next()
+    }
 })
 app.get('/', function(req, res){
     res.sendFile(__dirname+'/index.html')
@@ -43,25 +43,25 @@ app.get('/', function(req, res){
 router(app, resfn)
 socket(io)
 
-function downloadlyric(song){
-    request.post({
-        url:'http://music.163.com/api/search/pc',
-        form:{s:song,type:1}
-    },(err,res,body)=>{
-        // https://music.163.com/api/song/luric?id=1231&lv=-1&kv=-1
-        let data =JSON.parse(body).result.songs[0];
-        let id=data.id;
-        let name = data.name;
-        request.get(`https://music.163.com/api/song/lyric?id=${id}&lv=-1&kv=-1`,(err,res,body)=>{
-            if(err){
-                console.log(err.Message)
-            }
-            fs.writeFile(`./${name}.json`,body,()=>{
-                console.log(`${name}.json文件下载成功`)
-            })
-        })
-    });
-}
+// function downloadlyric(song){
+//     request.post({
+//         url:'http://music.163.com/api/search/pc',
+//         form:{s:song,type:1}
+//     },(err,res,body)=>{
+//         // https://music.163.com/api/song/luric?id=1231&lv=-1&kv=-1
+//         let data =JSON.parse(body).result.songs[0];
+//         let id=data.id;
+//         let name = data.name;
+//         request.get(`https://music.163.com/api/song/lyric?id=${id}&lv=-1&kv=-1`,(err,res,body)=>{
+//             if(err){
+//                 console.log(err.Message)
+//             }
+//             fs.writeFile(`./${name}.json`,body,()=>{
+//                 console.log(`${name}.json文件下载成功`)
+//             })
+//         })
+//     });
+// }
 // downloadlyric('纸短情长')
 server.listen(666, function(){
     console.log('服务器在666端口启动')

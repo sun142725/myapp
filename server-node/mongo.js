@@ -13,4 +13,4 @@ db.on('open', function(){
 db.on('error', function(){
     console.log('MongoDB Connection Error');
 });
-mongoose.connect('mongodb://140.143.245.128:27017/test')     //连接本地数据库totoro
+mongoose.connect('mongodb://140.143.245.128:27017/totoro')     //连接本地数据库totoro
