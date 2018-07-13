@@ -28,8 +28,9 @@ app.all('*', function(req, res, next) {
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
-const PERSONAL = 'personal_enter'
+const PERSONAL = 'personal_center'
 app.use(function(req, res, next){
+    console.log(req)
     //  路由拦截验证token
     if(req.url.split('/')[1] === PERSONAL){
 

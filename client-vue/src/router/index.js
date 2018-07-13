@@ -1,26 +1,26 @@
 import Vue from 'vue'
 import store from '../store/store'
 import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
+// import HelloWorld from '@/page/HelloWorld'
 //  登陆注册
-import Login from '@/components/login/login'
+import Login from '@/page/login/login'
 // 首页
-import BHome from '@/components/Home'
-import Home from '@/components/home/home'
+import BHome from '@/page/Home'
+import Home from '@/page/home/home'
 //  音乐
-import Music from '@/components/music/music'
-import MusicList from '@/components/music/musicList'
-import MusicPlay from '@/components/music/music_play'
-import MusicSearch from '@/components/music/music_search'
+import Music from '@/page/music/music'
+import MusicList from '@/page/music/musicList'
+import MusicPlay from '@/page/music/music_play'
+import MusicSearch from '@/page/music/music_search'
 //  聊天
-import Chat from '@/components/chat/chat'
-import Chatroom from '@/components/chat/chatRoom'
+import Chat from '@/page/chat/chat'
+import Chatroom from '@/page/chat/chatRoom'
 //  动态
-import Trends from '@/components/trends/trends'
+import Trends from '@/page/trends/trends'
 // 个人中心
-import Personal from '@/components/personal/personal'
+import Personal from '@/page/personal/personal'
 // 404
-import Notfound from '@/components/404'
+import Notfound from '@/page/404'
 
 Vue.use(Router)
 
@@ -43,7 +43,7 @@ const router = new Router({
           name: 'home',
           component: Home,
           meta: {
-            requireAuth: true
+            requireAuth: false
           }
         },
         // 聊天
@@ -52,7 +52,7 @@ const router = new Router({
           name: 'chat',
           component: Chat,
           meta: {
-            requireAuth: true
+            requireAuth: false
           }
         },
         //  动态
@@ -61,7 +61,7 @@ const router = new Router({
           name: 'trends',
           component: Trends,
           meta: {
-            requireAuth: true
+            requireAuth: false
           }
         },
         //  个人中心
@@ -98,7 +98,7 @@ const router = new Router({
       name: 'chatroom',
       component: Chatroom,
       meta: {
-        requireAuth: true
+        requireAuth: false
       }
     },
     {

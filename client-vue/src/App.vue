@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import UnderNav from './components/home/underNav'
+import UnderNav from './page/home/underNav'
 export default {
   name: 'App',
   components: {UnderNav}

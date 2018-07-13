@@ -14,9 +14,7 @@ module.exports = function (app, fn) {
                         expiresIn: 60 * 60 * 24 * 7
                     });
                     // 登陆成功，返回登陆信息
-                    data.token = token
-                    console.log(data, token)
-                    return res.status(200).json(fn(1, data, '登录成功'))
+                    return res.status(200).json(fn(1, data, '登陆成功'), token)
                 }
             })
         });
@@ -33,7 +31,10 @@ module.exports = function (app, fn) {
                     if(err || !data) {
                         return res.status(500).json({ code: 0, msg: "后端错误" });
                     }
-                    return res.status(200).json(fn(1, data, '注册成功'))
+                    const token = jwt.sign({ id: data._id }, 'token', {
+                        expiresIn: 60 * 60 * 24 * 7
+                    });
+                    return res.status(200).json({ code: 0, token, data })
                 })
             })
         });

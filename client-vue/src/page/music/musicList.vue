@@ -53,5 +53,5 @@ export default {
 </script>
 <style lang="sass">
     @import "../common/common"
-    @import "./css/music"
+    @import "css/music"
 </style>
