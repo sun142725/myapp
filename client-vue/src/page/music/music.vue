@@ -1,5 +1,5 @@
 <template>
-  <div class="view-no">
+  <div class="view-no active">
     <div class="view-no">
       <x-header :left-options="{backText: ''}">排行榜 <router-link to="/music/search" slot="right"><x-icon type="ios-search" size="30" style="color:#fff;"></x-icon></router-link></x-header>
       <ul class="music-banner">
@@ -61,7 +61,10 @@ export default {
   }
 }
 </script>
-<style lang="sass">
-  @import "../common/common"
-  @import "css/music"
+<style lang="scss" scoped>
+  /*@import "../common/common"*/
+  /*@import "css/music"*/
+  .active{
+    @include random;
+  }
 </style>
