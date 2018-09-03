@@ -14,7 +14,6 @@ export default{
     // https://i.y.qq.com/v8/playsong.html?songmid=000Md1wq0vnwzE&ADTAG=myqq&from=myqq&channel=10007100
     this.songUrl = `http://dl.stream.qqmusic.qq.com/C400${this.$route.query.songmid}.m4a?guid=8533048437&vkey=116F20E488A661363240014C69E1182D1CABD75F7FE19C528FD39853499B815CAB0A95CD86B8DD97C02086E1C46CFE425FDD49403A6A6EBA&uin=0&fromtag=42`
     // this.songUrl = `http://ws.stream.qqmusic.qq.com/${this.$route.query.songid}.m4a?fromtag=46`
-
   },
   mounted: function () {
     // var id = this.$route.query.songid
@@ -23,5 +22,5 @@ export default{
 }
 </script>
 <style lang="scss">
-  /*@import "../common/common";*/
+  /*@import "../sass/sass";*/
 </style>

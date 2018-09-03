@@ -26,7 +26,6 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../common/common";
   @import "css/nav";
   .underNav{
     width:100%;

@@ -62,8 +62,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  /*@import "../common/common"*/
-  /*@import "css/music"*/
   .active{
     @include random;
   }

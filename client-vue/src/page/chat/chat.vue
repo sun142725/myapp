@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-    <ul class="chatList">
+    <!--<ul class="chatList">
       <li v-for='(v,i) in chatList' :key="i">
         <router-link :to="{name: 'chatroom', query: {id: v.id}}">
           <img src="" alt="">
@@ -11,7 +11,11 @@
           <em>{{v.time}}</em>
         </router-link>
       </li>
-    </ul>
+    </ul>-->
+    <div @click="pushRoom">
+      <img src="../../assets/img/ss_hair.jpg" alt="">
+      <p>点我和珊珊聊天</p>
+    </div>
   </div>
 </template>
 <script>
@@ -21,13 +25,23 @@ export default {
     return {
       chatList: [{'id': 1, 'name': '李珊', 'point': '123.png', 'newest': '您好', 'time': '下午2:00'}]
     }
+  },
+  mounted: function () {
+    console.log(this)
+  },
+  methods: {
+    pushRoom () {
+      this.$router.push('/chatroom')
+    }
   }
 }
 </script>
 <style lang="scss" scoped="">
-  @import "../common/common";
   .view{
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .chatList{
     width:100%;

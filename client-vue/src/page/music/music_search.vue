@@ -55,6 +55,5 @@ export default{
 }
 </script>
 <style lang="sass">
-    @import "../common/common"
     @import "css/music"
 </style>

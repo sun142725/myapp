@@ -1,8 +1,8 @@
 module.exports = function (io){
     io.on('connection', function(socket) {
-        socket.on('content', function (data) {
+        socket.on('sendMsg', function (data) {
             console.log(data)
-            socket.broadcast.emit('news', {hello: data})
+            socket.broadcast.emit('message', {content: data})
         })
     })
 }

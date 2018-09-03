@@ -1,26 +1,6 @@
 import Vue from 'vue'
 import store from '../store/store'
 import Router from 'vue-router'
-// import HelloWorld from '@/page/HelloWorld'
-//  登陆注册
-import Login from '@/page/login/login'
-// 首页
-import BHome from '@/page/Home'
-import Home from '@/page/home/home'
-//  音乐
-import Music from '@/page/music/music'
-import MusicList from '@/page/music/musicList'
-import MusicPlay from '@/page/music/music_play'
-import MusicSearch from '@/page/music/music_search'
-//  聊天
-import Chat from '@/page/chat/chat'
-import Chatroom from '@/page/chat/chatRoom'
-//  动态
-import Trends from '@/page/trends/trends'
-// 个人中心
-import Personal from '@/page/personal/personal'
-// 404
-import Notfound from '@/page/404'
 
 Vue.use(Router)
 
@@ -30,18 +10,18 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: resolve => require(['@/page/login/login'], 'login', resolve)
     },
     // 首页
     {
       path: '/',
       redirect: '/home',
-      component: BHome,
+      component: resolve => require(['@/page/Home'], resolve),
       children: [
         {
           path: '/home',
           name: 'home',
-          component: Home,
+          component: resolve => require(['@/page/home/home'], resolve),
           meta: {
             requireAuth: false
           }
@@ -50,7 +30,7 @@ const router = new Router({
         {
           path: '/chat',
           name: 'chat',
-          component: Chat,
+          component: resolve => require(['@/page/chat/chat'], resolve),
           meta: {
             requireAuth: false
           }
@@ -59,7 +39,7 @@ const router = new Router({
         {
           path: '/trends',
           name: 'trends',
-          component: Trends,
+          component: resolve => require(['@/page/trends/trends'], resolve),
           meta: {
             requireAuth: false
           }
@@ -68,7 +48,7 @@ const router = new Router({
         {
           path: '/personal',
           name: 'personal',
-          component: Personal
+          component: resolve => require(['@/page/personal/personal'], resolve)
         }
       ]
     },
@@ -76,27 +56,27 @@ const router = new Router({
     {
       path: '/music',
       name: 'music',
-      component: Music
+      component: resolve => require(['@/page/music/music'], resolve)
     },
     {
       path: '/musiclist',
       name: 'musiclist',
-      component: MusicList
+      component: resolve => require(['@/page/music/musicList'], resolve)
     },
     {
       path: '/music/search',
       name: 'mSearch',
-      component: MusicSearch
+      component: resolve => require(['@/page/music/music_search'], resolve)
     },
     {
       path: '/music_play',
       name: 'music_play',
-      component: MusicPlay
+      component: resolve => require(['@/page/music/music_play'], resolve)
     },
     {
       path: '/chatroom',
       name: 'chatroom',
-      component: Chatroom,
+      component: resolve => require(['@/page/chat/chatRoom'], resolve),
       meta: {
         requireAuth: false
       }
@@ -104,7 +84,7 @@ const router = new Router({
     {
       path: '/*',
       name: '404',
-      component: Notfound
+      component: resolve => require(['@/page/404'], resolve)
     }
   ]
 })

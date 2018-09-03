@@ -6,10 +6,10 @@ import App from './App'
 import http from './api/api'
 import router from './router'
 import './comment.css'
+import './iconfont/iconfont.css'
 import { ToastPlugin, LoadingPlugin } from 'vux'
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
-
 Vue.use(http)
 Vue.config.productionTip = false
 

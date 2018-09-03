@@ -1,6 +1,7 @@
+@import "../../../sass/common";
 .music-banner{
   height:3rem;
-  @include random;
+  //@include random;
 }
 .ranking{
   width:100%;
