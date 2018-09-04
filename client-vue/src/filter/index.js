@@ -1,34 +1,21 @@
-function addZero(val) {
-  if (val < 10) {
-    return "0" + val;
-  } else {
-    return val;
-  }
-};
-function formatTime(value, type) {
-  let dataTime = "";
-  let data = new Date();
-  data.setTime(value);
-  let year = data.getFullYear();
-  let month = addZero(data.getMonth() + 1);
-  let day = addZero(data.getDate());
-  let hour = addZero(data.getHours());
-  let minute = addZero(data.getMinutes());
-  let second = addZero(data.getSeconds());
-  if (type == "YMD") {
-    dataTime = year + "-" + month + "-" + day;
-  } else if (type == "YMDHMS") {
-    dataTime = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
-  } else if (type == "HMS") {
-    dataTime = hour + ":" + minute + ":" + second;
-  } else if (type == "YM") {
-    dataTime = year + "-" + month;
+const formatTime = date => {
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  const second = date.getSeconds()
 
-  }
-  return dataTime;//将格式化后的字符串输出到前端显示
+  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+
+const formatNumber = n => {
+  n = n.toString()
+  return n[1] ? n : '0' + n
 }
 export default {
   install:function (Vue) {
     Vue.filter('formatTime', formatTime)
   }
 }
+export { formatTime }

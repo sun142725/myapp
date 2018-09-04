@@ -6,6 +6,10 @@ var user = new Schema({
         type: String,
         unique: true
     },
+    user_id: {
+        type: Number,
+        default: 0
+    },
     password: {
         type: String
     },
