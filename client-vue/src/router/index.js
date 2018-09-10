@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import store from '../store/store'
+import store from '../store/index'
 import Router from 'vue-router'
 
 Vue.use(Router)
@@ -10,7 +10,7 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: resolve => require(['@/page/login/login'], 'login', resolve)
+      component: resolve => require(['@/page/login/login'], resolve)
     },
     // 首页
     {
@@ -96,7 +96,7 @@ if (window.localStorage.getItem('userPhone')) {
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.requireAuth)) {
-    if (store.state.loginstate) {
+    if (localStorage.getItem('token')) {
       next()
     } else {
       next({

@@ -14,12 +14,13 @@ module.exports = function (app, fn) {
                         expiresIn: 60 * 60 * 24 * 7
                     });
                     // 登陆成功，返回登陆信息
-                    return res.status(200).json(fn(1, data, '登陆成功'), token)
+                    return res.status(200).json(fn('000000', data, '登陆成功'), token)
                 }
             })
         });
         app.post('/register', function (req, res) {
             const {username, password} = req.body
+            console.log(1)
             User.findOne({ username }, function (err, data) {
                 if(err) throw err
                 if(data) {
@@ -34,7 +35,7 @@ module.exports = function (app, fn) {
                     const token = jwt.sign({ id: data._id }, 'token', {
                         expiresIn: 60 * 60 * 24 * 7
                     });
-                    return res.status(200).json({ code: 0, token, data })
+                    return res.status(200).json({ code: '000000', token, body: data })
                 })
             })
         });
@@ -51,7 +52,7 @@ module.exports = function (app, fn) {
                         if(err) {
                             return res.status(500).json({ code: 0, msg: "异常" });
                         }
-                        return res.status(200).json(fn(1, data, '密码修改成功'))
+                        return res.status(200).json(fn('000000', data, '密码修改成功'))
                     })
                 }
             })

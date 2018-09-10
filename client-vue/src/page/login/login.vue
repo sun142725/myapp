@@ -12,6 +12,8 @@
 </template>
 <script>
 import { XInput, Group, XButton, XHeader } from 'vux'
+import { LOGIN_IN } from 'store/login'
+import {mapActions} from 'vuex'
 export default {
   name: 'login',
   components: { XInput, Group, XButton, XHeader },
@@ -26,12 +28,16 @@ export default {
   mounted: function () {
   },
   methods: {
+    ...mapActions([LOGIN_IN]),
     login: function () {
-      this.http.login({...this.form})
+      this.http.register({...this.form})
         .then(res => res.data)
         .then(data => {
-          if (data.code === 1) {
-            this.$store.commit('login', true)
+          console.log(data)
+          if (data.code === '000000') {
+            alert(1)
+            this.LOGIN_IN(data.body)
+            localStorage.setItem('token', data.token)
             let redirect = decodeURIComponent(this.$route.query.redirect || '/')
             console.log(redirect)
             this.$router.push({
@@ -44,6 +50,7 @@ export default {
             })
           }
         })
+        .catch(err => console.log(err, '1111'))
     },
     checkLogin: function () {
       if (this.token) {

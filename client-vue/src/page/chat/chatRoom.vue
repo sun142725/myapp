@@ -21,7 +21,8 @@
 </template>
 <script>
 import io from 'socket.io-client'
-const socket = io.connect('http://172.17.1.119:666')
+const socket = io.connect('http://192.168.1.155:666')
+import {mapState} from 'vuex'
 export default {
   name: 'chatroom',
   data: function () {
@@ -39,6 +40,10 @@ export default {
   mounted: function () {
     console.log('111')
     let _this = this
+    socket.emit('joinRoom', {mobile: this.user.mobile, to_mobile: '18234018235'})
+    socket.on('joinRes', function (data) {
+      console.log(data)
+    })
     socket.on('message', function (data) {
       console.log(1)
       console.log(data)
@@ -57,7 +62,8 @@ export default {
       }
       this.newsList.push(receiveMsg)
     }
-  }
+  },
+  computed: mapState({user: state => state.login})
 }
 </script>
 <style lang="scss" scoped="">

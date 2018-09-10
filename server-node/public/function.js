@@ -1,8 +1,8 @@
-function resfn(code, data, msg, page={}) {
+function resfn(code, body, describe, page={}) {
     return {
         'code': code || 0,
-        'data': data || {},
-        'msg': msg,
+        'body': body || {},
+        'describe': describe,
         'pageInfo': {
             'curPage': page.cur || 1,
             'TotalPage': page.total || 1,

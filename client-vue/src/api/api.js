@@ -56,6 +56,12 @@ let ajax = {
   login (data) {
     return http.post('/login', data)
   },
+  register (data) {
+    return http.post('/register', data)
+  },
+  forget (data) {
+    return http.post('/forget', data)
+  },
   ranking (data) {
     return http.jsonp('https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg', Object.assign(data, PARAM), option)
   },
