@@ -39,6 +39,7 @@ app.use(function(req, res, next){
     }
 })
 app.get('/', function(req, res){
+    res.header("Content-Type", "text/html");
     res.sendFile(__dirname+'/index.html')
 })
 router(app, resfn)

@@ -6,8 +6,51 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://cdn.socket.io/socket.io-1.7.3.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 </head>
 <body>
-
+        <ul id="messages"></ul>
+        <video src="" autoplay playsinline></video>
+        <video src="" id="romate" autoplay playsinline></video>
+        <form id="form" action="">
+          <input id="m" autocomplete="off" /><button>Send</button>
+        </form>
+        <form id="join" action="">
+            <input id="m" autocomplete="off" /><button>join</button>
+        </form>
 </body>
 </html>
+<script>
+    // socket dome
+    $(function () {
+        var name=prompt("Please enter your name","18200000000")
+        var socket = io('http://localhost:666?code='+ name);
+        $('#form').submit(function(){
+          
+          socket.emit('c2cMsgNotify', name, '13100000001', $('#m').val());
+          $('#m').val('');
+          return false;
+        });
+        $('#join').submit(function(){
+          socket.emit('join', {
+            mobile: name
+          });
+          $('#m').val('');
+          return false;
+        });
+        socket.on('c2cMsgNotify', function(from,to,msg){
+          console.log(from,to,msg)
+          $('#messages').append($('<li>').text(msg));
+          console.log(JSON.parse(msg))
+        });
+        socket.on('groupMsgNotify', function(data){
+          console.log(data)
+          $('#messages').append($('<li>').text(data.roomId + data.content + data.type));
+          console.log(JSON.parse(msg))
+        });
+        socket.on('connect', ()=>{
+          console.log(socket)
+        })
+    })
+</script>
