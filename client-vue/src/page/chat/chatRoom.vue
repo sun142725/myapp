@@ -20,8 +20,8 @@
   </div>
 </template>
 <script>
-import io from 'socket.io-client'
-const socket = io.connect('http://192.168.1.155:666')
+// import io from 'socket.io-client'
+// const socket = io.connect('http://192.168.1.155:666')
 import {mapState} from 'vuex'
 export default {
   name: 'chatroom',
@@ -39,20 +39,28 @@ export default {
   },
   mounted: function () {
     console.log('111')
-    let _this = this
-    socket.emit('joinRoom', {mobile: this.user.mobile, to_mobile: '18234018235'})
-    socket.on('joinRes', function (data) {
-      console.log(data)
-    })
-    socket.on('message', function (data) {
-      console.log(1)
-      console.log(data)
-      _this.handMessage(data)
-    })
+    // let _this = this
+    // socket.emit('joinRoom', {mobile: this.user.mobile, to_mobile: '18234018235'})
+    // socket.on('joinRes', function (data) {
+    //   console.log(data)
+    // })
+    // socket.on('message', function (data) {
+    //   console.log(1)
+    //   console.log(data)
+    //   _this.handMessage(data)
+    // })  socket.emit('joinRoom', {mobile: this.user.mobile, to_mobile: '18234018235'})
+    // socket.on('joinRes', function (data) {
+    //   console.log(data)
+    // })
+    // socket.on('message', function (data) {
+    //   console.log(1)
+    //   console.log(data)
+    //   _this.handMessage(data)
+    // })
   },
   methods: {
     sendMsg () {
-      socket.emit('sendMsg', this.msg)
+      // socket.emit('sendMsg', this.msg)
       this.msg = ''
     },
     handMessage (data) {
