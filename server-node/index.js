@@ -43,9 +43,9 @@ app.use(function(req, res, next){
             console.log(err, decoded)
             if(err){
                 return res.status(200).json({
-                    code: 700001,
+                    code: '700001',
                     body: null,
-                    describe: ERROR_CODE[700001],
+                    describe: ERROR_CODE['700001'],
                 })
             } else {
                 console.log(decoded.mobile)

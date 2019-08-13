@@ -13,16 +13,16 @@ module.exports = function (app, fn) {
                 if(err){
                     console.log('查询异常');
                     return res.status(500).json({
-                        code: 700000,
+                        code: '700000',
                         body: null,
-                        describe: ERROR_CODE[700000],
+                        describe: ERROR_CODE['700000'],
                     })
                 } else {
                     if(result.length == 0){
                         return res.status(200).json({
-                            code: 000003,
+                            code: '000003',
                             body: null,
-                            describe: ERROR_CODE[000003],
+                            describe: ERROR_CODE['000003'],
                         })
                     }else if(password == result[0].password){
                         const token = jwt.sign({ mobile: result[0].mobile }, 'token', {
@@ -36,9 +36,9 @@ module.exports = function (app, fn) {
                         })
                     } else {
                         return res.status(200).json({
-                            code: 000002,
+                            code: '000002',
                             body: null,
-                            describe: ERROR_CODE[000002]
+                            describe: ERROR_CODE['000002']
                         })
                     }
                    
@@ -52,26 +52,26 @@ module.exports = function (app, fn) {
                 if(err){
                     console.log('sql语句出错');
                     return res.status(500).json({
-                        code: 700000,
+                        code: '700000',
                         body: null,
-                        describe: ERROR_CODE[700000],
+                        describe: ERROR_CODE['700000'],
                     })
                 } else {
                     // 已存在的账号
                     if(result.length > 0){
                         return res.status(200).json({
-                            code: 000001,
+                            code: '000001',
                             body: null,
-                            describe: ERROR_CODE[000001]
+                            describe: ERROR_CODE['000001']
                         })
                     } else {
                         con.query('INSERT INTO user(id, mobile,password) VALUES(0,?,?)', [mobile, password], function(err, result){
                             if(err){
                                 console.log('sql语句出错', err);
                                 return res.status(500).json({
-                                    code: 700000,
+                                    code: '700000',
                                     body: null,
-                                    describe: ERROR_CODE[700000],
+                                    describe: ERROR_CODE['700000'],
                                 })
                             } else {
                                 console.log(result)
@@ -96,34 +96,34 @@ module.exports = function (app, fn) {
             const {mobile, password, newPassword, newPasswordAlign} = req.body
             if(newPasswordAlign != newPassword){
                 return res.status(200).json({
-                    code: 000005,
+                    code: '000005',
                     body: null,
-                    describe: ERROR_CODE[000005],
+                    describe: ERROR_CODE['000005'],
                 })
             }
             con.query('SELECT * FROM user WHERE mobile = ' + mobile, function(err, result){
                 if(err){
                     console.log('sql语句出错', err);
                     return res.status(500).json({
-                        code: 700000,
+                        code: '700000',
                         body: null,
-                        describe: ERROR_CODE[700000],
+                        describe: ERROR_CODE['700000'],
                     })
                 } else {
                     if(result.length > 0) {
                         if(result[0].password != password){
                             return res.status(200).json({
-                                code: 000004,
+                                code: '000004',
                                 body: null,
-                                describe: ERROR_CODE[000004],
+                                describe: ERROR_CODE['000004'],
                             })
                         }
                         con.query('UPDATE user SET password = ? WHERE mobile = ?', [password, mobile], function(err, result){
                             if(err){
                                 return res.status(500).json({
-                                    code: 700000,
+                                    code: '700000',
                                     body: null,
-                                    describe: ERROR_CODE[700000],
+                                    describe: ERROR_CODE['700000'],
                                 })
                             } else {
                                 return res.status(500).json({
@@ -136,9 +136,9 @@ module.exports = function (app, fn) {
                     } else {
                         //  用户不存在
                         return res.status(200).json({
-                            code: 000003,
+                            code: '000003',
                             body: null,
-                            describe: ERROR_CODE[000003],
+                            describe: ERROR_CODE['000003'],
                         })
                     }
                 }
@@ -152,18 +152,18 @@ module.exports = function (app, fn) {
                 if(err){
                     console.log('sql语句出错', err);
                     return res.status(500).json({
-                        code: 700000,
+                        code: '700000',
                         body: null,
-                        describe: ERROR_CODE[700000],
+                        describe: ERROR_CODE['700000'],
                     })
                 } else {
                     if(result.length > 0) {
                         con.query('UPDATE user SET password = ? WHERE mobile = ?', [password, mobile], function(err, result){
                             if(err){
                                 return res.status(500).json({
-                                    code: 700000,
+                                    code: '700000',
                                     body: null,
-                                    describe: ERROR_CODE[700000],
+                                    describe: ERROR_CODE['700000'],
                                 })
                             } else {
                                 return res.status(200).json({
@@ -176,9 +176,9 @@ module.exports = function (app, fn) {
                     } else {
                         //  用户不存在
                         return res.status(200).json({
-                            code: 000003,
+                            code: '000003',
                             body: null,
-                            describe: ERROR_CODE[000003],
+                            describe: ERROR_CODE['000003'],
                         })
                     }
                 }
@@ -191,9 +191,9 @@ module.exports = function (app, fn) {
                 if(err){
                     console.log('sql语句出错', err);
                     return res.status(500).json({
-                        code: 700000,
+                        code: '700000',
                         body: null,
-                        describe: ERROR_CODE[700000],
+                        describe: ERROR_CODE['700000'],
                     })
                 } else {
                     if(result.length > 0) {
@@ -201,9 +201,9 @@ module.exports = function (app, fn) {
                             if(err){
                                 console.log(err)
                                 return res.status(500).json({
-                                    code: 700000,
+                                    code: '700000',
                                     body: null,
-                                    describe: ERROR_CODE[700000],
+                                    describe: ERROR_CODE['700000'],
                                 })
                             } else {
                                 return res.status(200).json({
@@ -216,9 +216,9 @@ module.exports = function (app, fn) {
                     } else {
                         //  用户不存在
                         return res.status(200).json({
-                            code: 000003,
+                            code: '000003',
                             body: null,
-                            describe: ERROR_CODE[000003],
+                            describe: ERROR_CODE['000003'],
                         })
                     }
                 }
@@ -231,9 +231,9 @@ module.exports = function (app, fn) {
                 if(err){
                     console.log('sql语句出错', err);
                     return res.status(500).json({
-                        code: 700000,
+                        code: '700000',
                         body: null,
-                        describe: ERROR_CODE[700000],
+                        describe: ERROR_CODE['700000'],
                     })
                 } else {
                     if(result.length > 0) {
@@ -241,9 +241,9 @@ module.exports = function (app, fn) {
                             if(err){
                                 console.log(err)
                                 return res.status(500).json({
-                                    code: 700000,
+                                    code: '700000',
                                     body: null,
-                                    describe: ERROR_CODE[700000],
+                                    describe: ERROR_CODE['700000'],
                                 })
                             } else {
                                 return res.status(200).json({
@@ -256,9 +256,9 @@ module.exports = function (app, fn) {
                     } else {
                         //  用户不存在
                         return res.status(200).json({
-                            code: 000003,
+                            code: '000003',
                             body: null,
-                            describe: ERROR_CODE[000003],
+                            describe: ERROR_CODE['000003'],
                         })
                     }
                 }
@@ -272,9 +272,9 @@ module.exports = function (app, fn) {
                 if(err){
                     console.log('sql语句出错', err);
                     return res.status(500).json({
-                        code: 700000,
+                        code: '700000',
                         body: null,
-                        describe: ERROR_CODE[700000],
+                        describe: ERROR_CODE['700000'],
                     })
                 } else {
                     if(result.length > 0) {
@@ -286,9 +286,9 @@ module.exports = function (app, fn) {
                     } else {
                         //  用户不存在
                         return res.status(200).json({
-                            code: 000003,
+                            code: '000003',
                             body: null,
-                            describe: ERROR_CODE[000003],
+                            describe: ERROR_CODE['000003'],
                         })
                     }
                 }
