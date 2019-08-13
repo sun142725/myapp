@@ -7,8 +7,10 @@ var io = require('socket.io')(server, {
 const bodyParser = require('body-parser');
 const cookie = require('cookie');
 var resfn = require('./public/function')
-var router = require('./router')
+// var router = require('./router')
+var router = require('./router/index')
 var socket = require('./socket')
+var jwt = require('jsonwebtoken')
 // var request = require('request')
 
 
@@ -26,14 +28,30 @@ app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.header("X-Powered-By",' 3.2.1')
     res.header("Content-Type", "application/json;charset=utf-8");
-    next();
+    if(req.method === 'OPTIONS') {
+        res.sendStatus(200)
+    } else {
+        next();
+    }
 });
 const PERSONAL = 'personal_center'
 app.use(function(req, res, next){
-    console.log(req)
+    console.log(req.url)
     //  路由拦截验证token
     if(req.url.split('/')[1] === PERSONAL){
-
+        jwt.verify(req.headers.token, 'token', function(err, decoded){
+            console.log(err, decoded)
+            if(err){
+                return res.status(200).json({
+                    code: 700001,
+                    body: null,
+                    describe: ERROR_CODE[700001],
+                })
+            } else {
+                console.log(decoded.mobile)
+                next()
+            }
+        })
     } else {
         next()
     }

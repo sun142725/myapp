@@ -8,7 +8,7 @@ var arrAllRoom = {
 }
 module.exports = function (io){
     io.on('connection', function(socket) {
-        console.log(socket)
+        // console.log(socket)
         //  保存用户socketid
         arrAllSocket[socket.handshake.query.mobile] = socket.id;
         //  Join Room
@@ -31,7 +31,6 @@ module.exports = function (io){
                 })
             }
             console.log(rooms, '111')
-
         })
         socket.on('leave', function(data){
             socket.leave(data.roomId, function(){

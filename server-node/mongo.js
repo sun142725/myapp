@@ -11,6 +11,7 @@ db.on('open', function(){
 });
 // 连接失败
 db.on('error', function(){
+    db.close();
     console.log('MongoDB Connection Error');
 });
-// mongoose.connect('mongodb://140.143.245.128:27017/totoro')     //连接本地数据库totoro
+// mongoose.connect('mongodb://127.0.0.1:27017/totoro')     //连接本地数据库totoro
