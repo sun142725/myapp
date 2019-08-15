@@ -11,6 +11,11 @@ const return7000 = require('../com_return_err').return7000
  */
 function createTemporaryF(room_id, mobile, friend_mobile, status = 1, callback){
     con.query('INSERT INTO friend(id, room_id,mobile, friend_mobile, status, is_invitation) VALUES(0, ?,?,?,?, 1),(0, ?,?,?,?, 0)', [room_id, mobile, friend_mobile, status, room_id, friend_mobile, mobile, status], function(err, result){
+        if(!err){
+            con.query('INSERT INTO chat_room(id, room_id, type, mobile, member_pos) select 0,room_id,0,mobile,0 FROM friend WHERE room_id = ?', [room_id], function(err2, result2){
+                console.log('err2', err2)
+            })
+        }
         callback && callback(err, result)
     })
 }

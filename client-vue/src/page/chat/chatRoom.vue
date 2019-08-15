@@ -4,18 +4,14 @@
       <router-link to="">红珊聊天室</router-link>
       <span>(红红的珊珊)</span>
     </div>
-    <ul class="chat_content">
-      <li v-for="(v, i) in newsList" :key="i" :class="v.me ? 'chat_me' : ''">
-        <p v-if="v.me">{{v.content}}</p>
-        <router-link to="/friend">
-          <img :src="loadImg" alt="">
-        </router-link>
-        <p v-if="!v.me">{{v.content}}</p>
-      </li>
-    </ul>
-    <div class="chat_edit">
-      <input type="text" autocomplete="off" class="vux-1px-b" placeholder="请输入聊天信息" v-model="msg">
-      <button @click="sendMsg">发送</button>
+    <div class="chat-history-com" ref="chatHistoryCom" >
+            <chat-history></chat-history>
+        </div>
+    <div class="control">
+        <input class="send-text" type="text" v-model="message" placeholder="请输入文字内容" maxlength="100">
+        <img @click="uploadFile" src="../../assets/img/icon_img.png" alt="">
+        <img @click="sendMessage('text', message)" src="../../assets/img/icon_send.png" alt="">
+        <input ref="uploadFile" @change="getFile" v-show="false" type="file" name="image" accept="image/*">
     </div>
   </div>
 </template>
@@ -23,8 +19,10 @@
 // import io from 'socket.io-client'
 // const socket = io.connect('http://192.168.1.155:666')
 import {mapState} from 'vuex'
+import ChatHistory from './components/chat-history'
 export default {
   name: 'chatroom',
+  components: { ChatHistory },
   data: function () {
     return {
       newsList: [
@@ -59,7 +57,7 @@ export default {
     // })
   },
   methods: {
-    sendMsg () {
+    sendMessage (type = 'text', message) {
       // socket.emit('sendMsg', this.msg)
       this.msg = ''
     },
@@ -75,6 +73,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped="">
+@import './chatRoom.scss';
   .view{
     padding: 0;
   }
