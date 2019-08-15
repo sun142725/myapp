@@ -3,7 +3,8 @@ import Jsonp from 'jsonp'
 import qs from 'qs'
 import {baseURL} from './env'
 axios.defaults.baseURL = baseURL
-
+axios.defaults.crossDomain = true
+axios.defaults.withCredentials = true // 设置cross跨域 并设置访问权限 允许跨域携带cookie信息
 // http request 拦截
 axios.interceptors.request.use(
   config => {
@@ -21,6 +22,7 @@ axios.interceptors.response.use(
     return Promise.reject(err)
   }
 )
+
 function bindqs (data) {
   if (JSON.stringify(data).indexOf('{') === 0) {
     return qs.stringify(data)
@@ -32,7 +34,22 @@ let post = (url, data) => {
   return axios({
     method: 'post',
     url,
+    headers: {
+      'token': '',
+      'Content-Type': 'application/x-www-form-unlencoded; charset=utf-8'
+    },
     data: bindqs(data)
+  })
+}
+let postJson = (url, data) => {
+  return axios({
+    method: 'post',
+    url,
+    headers: {
+      'token': '',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    data: data
   })
 }
 let get = (url, data) => {
@@ -42,6 +59,7 @@ let get = (url, data) => {
     data
   })
 }
+
 //  处理jsonp url canshu
 function buildUrl (url, data) {
   let params = []
@@ -67,4 +85,4 @@ let jsonp = (url, data, option) => {
     })
   })
 }
-export default {post, get, jsonp}
+export default {post, get, jsonp, postJson}

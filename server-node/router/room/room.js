@@ -36,6 +36,12 @@ function updateRoom(status, room_id, mobile,callback){
     })
 }
 
+function getRoomMember(room_id, callback){
+    con.query('SELECT c.*,u.nickName,u.headUrl FROM chat_room c RIGHT JOIN user u on c.mobile = u.mobile WHERE room_id = ?', [room_id], function(err, result){
+        callback && callback(err, result)
+    })
+}
+
 
 module.exports = function (app, fn) {
     app.post('/joinRoom', function (req, res) {
@@ -113,6 +119,20 @@ module.exports = function (app, fn) {
                         }
                     })
                 }
+            }
+        })
+    })
+    app.post('/getRoomMember', function(req, res){
+        const {room_id} = req.body
+        getRoomMember(room_id, function(err, result){
+            if(err){
+                return7000
+            } else {
+                return res.status(200).json({
+                    code: 0,
+                    body: result,
+                    describe: '获取群成员信息成功',
+                })
             }
         })
     })
