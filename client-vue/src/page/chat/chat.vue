@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-    <!--<ul class="chatList">
+    <ul class="chatList">
       <li v-for='(v,i) in chatList' :key="i">
         <router-link :to="{name: 'chatroom', query: {id: v.id}}">
           <img src="" alt="">
@@ -11,7 +11,7 @@
           <em>{{v.time}}</em>
         </router-link>
       </li>
-    </ul>-->
+    </ul>
     <div @click="pushRoom">
       <img src="../../assets/img/ss_hair.jpg" alt="">
       <p>点我和珊珊聊天</p>

@@ -1,11 +1,8 @@
 <template>
   <div class="view">
-    <div class="chat_head">
-      <router-link to="">红珊聊天室</router-link>
-      <span>(红红的珊珊)</span>
-    </div>
+    <v-header title="珊珊的聊天室"></v-header>
     <div class="chat-history-com" ref="chatHistoryCom" >
-            <chat-history></chat-history>
+            <chat-history backUrl='/chat'></chat-history>
         </div>
     <div class="control">
         <input class="send-text" type="text" v-model="message" placeholder="请输入文字内容" maxlength="100">
@@ -16,57 +13,54 @@
   </div>
 </template>
 <script>
-// import io from 'socket.io-client'
-// const socket = io.connect('http://192.168.1.155:666')
 import {mapState} from 'vuex'
 import ChatHistory from './components/chat-history'
+import { getRoomMember } from '@/api/chat.js'
 export default {
   name: 'chatroom',
   components: { ChatHistory },
   data: function () {
     return {
-      newsList: [
-        {'id': 1, 'point': '', 'content': '您好好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊我喜欢你珊珊', 'me': false},
-        {'id': 2, 'point': '', 'content': '您好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好', 'me': true},
-        {'id': 3, 'point': '', 'content': '您好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好', 'me': true},
-        {'id': 4, 'point': '', 'content': '您好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好我喜欢你珊珊好', 'me': true}
-      ],
       loadImg: require('../../assets/img/load_chat_icon.png'),
-      msg: ''
+      message: ''
     }
   },
   mounted: function () {
     console.log('111')
-    // let _this = this
-    // socket.emit('joinRoom', {mobile: this.user.mobile, to_mobile: '18234018235'})
-    // socket.on('joinRes', function (data) {
-    //   console.log(data)
-    // })
-    // socket.on('message', function (data) {
-    //   console.log(1)
-    //   console.log(data)
-    //   _this.handMessage(data)
-    // })  socket.emit('joinRoom', {mobile: this.user.mobile, to_mobile: '18234018235'})
-    // socket.on('joinRes', function (data) {
-    //   console.log(data)
-    // })
-    // socket.on('message', function (data) {
-    //   console.log(1)
-    //   console.log(data)
-    //   _this.handMessage(data)
-    // })
+    this.getRoomMember()
   },
   methods: {
     sendMessage (type = 'text', message) {
       // socket.emit('sendMsg', this.msg)
-      this.msg = ''
+      this.message = ''
     },
-    handMessage (data) {
-      var receiveMsg = {}
-      if (data.hasOwnProperty('content')) {
-        receiveMsg.content = data.content
-      }
-      this.newsList.push(receiveMsg)
+    //  上传图片
+    uploadFile () {
+      this.$refs.uploadFile.click()
+    },
+    //  获取上传图片并发送消息
+    getFile () {
+      console.log('111', this.$refs.uploadFile.files)
+      let _this = this
+      var formData = new FormData()
+      formData.append('code', _this.visitRecord.userCode)
+      formData.append('modularType', 'DPC')
+      formData.append('file', this.$refs.uploadFile.files[0])
+      //  掉接口
+      this.uploadFile(formData)
+        .then(res => {
+          console.log('res', res.data.filePath)
+          this.$refs.uploadFile.value = ''
+          _this.sendMessage('image', res.data.filePath)
+        })
+    },
+    getRoomMember () {
+      getRoomMember({room_id: this.$route.query.room_id})
+        .then(res => {
+          if (res.data.code === 0) {
+            console.log('roomMenber', res.data.body)
+          }
+        })
     }
   },
   computed: mapState({user: state => state.login})

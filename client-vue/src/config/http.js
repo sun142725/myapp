@@ -4,7 +4,7 @@ import qs from 'qs'
 import {baseURL} from './env'
 axios.defaults.baseURL = baseURL
 axios.defaults.crossDomain = true
-axios.defaults.withCredentials = true // 设置cross跨域 并设置访问权限 允许跨域携带cookie信息
+// axios.defaults.withCredentials = true // 设置cross跨域 并设置访问权限 允许跨域携带cookie信息
 // http request 拦截
 axios.interceptors.request.use(
   config => {
@@ -35,8 +35,7 @@ let post = (url, data) => {
     method: 'post',
     url,
     headers: {
-      'token': '',
-      'Content-Type': 'application/x-www-form-unlencoded; charset=utf-8'
+      // 'Content-Type': 'application/x-www-form-unlencoded; charset=utf-8'
     },
     data: bindqs(data)
   })
@@ -46,8 +45,8 @@ let postJson = (url, data) => {
     method: 'post',
     url,
     headers: {
-      'token': '',
       'Content-Type': 'application/json; charset=utf-8'
+      // 'access_Token': sessionStorage.access_Token || ''
     },
     data: data
   })
@@ -56,7 +55,8 @@ let get = (url, data) => {
   return axios({
     method: 'get',
     url,
-    data
+    data,
+    params: data
   })
 }
 

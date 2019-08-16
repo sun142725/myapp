@@ -78,7 +78,8 @@ const router = new Router({
       name: 'chatroom',
       component: resolve => require(['@/page/chat/chatRoom'], resolve),
       meta: {
-        requireAuth: false
+        requireAuth: false,
+        title: '聊天室'
       }
     },
     {

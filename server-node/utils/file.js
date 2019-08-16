@@ -27,9 +27,20 @@ function getHtml (dir){
         }
     })
 }
+function createImg (file) {
+    let ext = path.extname(file);
+    console.log(ext)
+    let ispic = /.jpg|.png|.gif|.jpeg/i;
+    if(ispic.test(ext)){
+        let ws = fs.createWriteStream(path.join(__dirname, Math.random()+ext));
+        console.log('__dirname', __dirname, ws)
+        // fs.createReadStream(file).pipe(ws)
+    }
+}
  module.exports = {
     getHtml,
     isDirectory,
     isFile,
-    sendHtml
+    sendHtml,
+    createImg
  }

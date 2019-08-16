@@ -1,3 +1,4 @@
+/* eslint-disable */
 import http from '@/config/http'
 
 //  发起好友请求
@@ -15,7 +16,7 @@ export function acceptFriend(data){
 }
 //  获取我的好友列表
 export function getMyFriend(data){
-    return http.post('/getMyFriend',{
+    return http.get('/getMyFriend',{
         mobile: data.mobile,
     })
 }
@@ -31,5 +32,15 @@ export function joinRoom(data){
         room_id: data.room_id || '',
         mobile: data.mobile,
         type: data.type || 0
+    })
+}
+
+
+
+//  查询群里聊成员
+export function getRoomMember(data){
+    console.log(data)
+    return http.post('/getRoomMember',{
+        room_id: data.room_id || '',
     })
 }

@@ -2,10 +2,10 @@
 @mixin right-arrow($c: #009ADE) {
     position: absolute;
     right:0;
-    top: pxToem(10);
+    top: .20rem;
     display: block;
     content: '';
-    border-width: pxToem(8);
+    border-width: .16rem;
     border-style: solid;
     border-color: transparent transparent transparent $c;
     transform: translateX(90%);
@@ -13,10 +13,10 @@
 @mixin left-arrow($c: #fff) {
     position: absolute;
     left:0;
-    top: pxToem(10);
+    top: .20rem;
     display: block;
     content: '';
-    border-width: pxToem(8);
+    border-width: .16rem;
     border-style: solid;
     border-color: transparent $c transparent transparent;
     transform: translateX(-90%);
@@ -27,11 +27,11 @@ ul.chat-history{
     li{
         .message-core{
             display: flex;
-            margin-bottom: pxToem(18)
+            margin-bottom: .36rem
         }
         .avar{
-            width: pxToem(42);
-            height: pxToem(42);
+            width: .84rem;
+            height: .84rem;
             border-radius: 50%;
             overflow: hidden;
             img{
@@ -46,24 +46,24 @@ ul.chat-history{
             align-items: center;
             span{
                 display: inline-block;
-                font-size: pxToem(17);
+                font-size: .34rem;
                 line-height: 1.2;
-                padding: pxToem(10) pxToem(12);
+                padding: .20rem .24rem;
                 position: relative;
                 max-width: calc(100% - 54px);
-                border-radius: pxToem(6)
+                border-radius: .12rem
             }
            
             .content-image{
                 // width: auto;
                 // display: flex;
                 // justify-content: flex-end;
-                // padding: pxToem(4);
+                // padding: .4rem;
                 // background: #fff;
-                // border-radius: pxToem(4);
+                // border-radius: .4rem;
                 img{
                     display: block;
-                    width: pxToem(100);
+                    width: 2rem;
                 }
             }
             .content-file{
@@ -73,26 +73,31 @@ ul.chat-history{
                 justify-content: flex-end;
                 background: #fff;
                 align-items: flex-start;
-                padding: pxToem(10) pxToem(12);
-                border-radius: pxToem(6);
+                padding: .2rem .24rem;
+                border-radius: .12rem;
                 position: relative;
                }
                 img{
-                    width:pxToem(36);
+                    width:.72rem;
                     display: block;
-                    height: pxToem(41);
-                    margin-left: pxToem(5);
+                    height: .82rem;
+                    margin-left: .1rem;
                 }
                 i{
                     font-style: normal;
                     flex:1;
                     user-select: none;
+                    text-align: left;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                    overflow: hidden;
                 }
             }
             &.left{
                 justify-content: flex-start;
                 color:#333;
-                margin-left: pxToem(12);
+                margin-left: .24rem;
                 span{
                     background-color: #fff;
                     &:after{
@@ -104,7 +109,7 @@ ul.chat-history{
                 }
             }
             &.right{
-                margin-right: pxToem(12);
+                margin-right: .24rem;
                 span{
                     background-color: #009ADE;
                     color:#fff;
@@ -121,11 +126,11 @@ ul.chat-history{
         }
         h6{
             text-align: center;
-            font-size: pxToem(12);
+            font-size: .24rem;
             color: #8A8F9B;
             line-height: 1.5;
             font-weight: normal;
-            margin-bottom: pxToem(18);
+            margin-bottom: .36rem;
         }
 
     }

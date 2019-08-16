@@ -8,7 +8,8 @@ $main-bg-color: #333;
   padding-bottom: 0.88rem;
   overflow: hidden;
   overflow-y: auto;
-  @include random;
+  background: #fff;
+  // @include random;
 }
 .view-no{
   @extend .view;
