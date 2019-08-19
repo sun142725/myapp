@@ -1,44 +1,71 @@
 var md5 = require('md5-base64')
+const { getUserRooms, updateRoom } = require('./router/room/sql')
+const { insertHistory } = require('./router/chat_room_history/sql')
 function handRoomId(roomId){
     return md5(roomId)
 }
 var arrAllSocket = {};
-var arrAllRoom = {
-
+function sendToRoom(socket, data){
+    const { room_id, type, content, describe, send_mobile } = data
+    insertHistory(room_id, type, content, describe = '', send_mobile, function(err, result){
+        if(!err){
+            socket.to(room_id).emit('groupMsgNotify', {
+                room_id: room_id,
+                content: content,
+                describe: describe,
+                send_mobile: send_mobile,
+                type: type
+            })
+        }
+    })
+}
+function joinUserRooms(socket,  mobile){
+    getUserRooms(mobile, function(err, result){
+        if(err){
+        } else {
+            socket.join(result.map(v=>v.room_id), function(){
+                console.log('加入群聊成功')
+            }, function(){
+                console.log('加入失败')
+            })
+        }
+    })
+}
+function leaveRoom(socket, data){
+    const { room_id, mobile } = data
+    updateRoom(2, room_id, mobile, function(err, result){
+        if(!err){
+            socket.leave(room_id, function(){
+                console.log('退群成功')
+            })
+        }
+    })
 }
 module.exports = function (io){
     io.on('connection', function(socket) {
-        // console.log(socket)
         //  保存用户socketid
         arrAllSocket[socket.handshake.query.mobile] = socket.id;
+        joinUserRooms(socket, socket.handshake.query.mobile)
         //  Join Room
         socket.on('join', function (data) {
-            console.log('接收到了joinRoom')
-            let roomId
-            roomId = data.mobile + new Date().getTime()
-            console.log('roomId=' + roomId)
+            const { room_id } = data
             let rooms = Object.keys(socket.rooms)
-            console.log(rooms)
             //  如果没有该房间
-            if(rooms.indexOf(roomId) === -1){
-                console.log(1)
-                socket.join(roomId, function () {
-                    socket.emit('groupMsgNotify', {roomId: roomId, content: '房间创建成功，快来聊天吧！', type: 1})
+            if(rooms.indexOf(room_id) === -1){
+                socket.join(room_id, function (result) {
+                    socket.emit('groupMsgNotify', {room_id: room_id, content: '房间创建成功，快来聊天吧！', describe: '', type: 'system'})
                 })
             } else {
-                socket.join(roomId, function () {
-                    socket.emit('groupMsgNotify', {roomId: roomId, content: '房间加入成功，快来聊天吧！', type: 1})
+                socket.join(room_id, function () {
+                    socket.emit('groupMsgNotify', {room_id: room_id, content: '房间加入成功，快来聊天吧！', type: 'system', name: data.name})
                 })
             }
-            console.log(rooms, '111')
         })
         socket.on('leave', function(data){
-            socket.leave(data.roomId, function(){
-                console.log('退群成功')
-            })
+            leaveRoom(socket, data)
         })
-        socket.on('groupMsgNotify', function (data) {
-            socket.to(data.roomId).emit('groupMsgNotify', {content: data.content}) //broadcast
+        socket.on('groupMsgNotify-c', function (data) {
+            sendToRoom(socket, data)
         })
         //  C2C[toAccount]
         socket.on('c2cMsgNotify', function(data){

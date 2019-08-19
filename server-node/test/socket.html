@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      #messages { margin-bottom: 40px }
+      video { width: 300px; height: 300px;}
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <div id="join">join</div>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.7.3.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+       $(function () {
+      var chat
+        var mobile=prompt("Please enter your mobile","18334771358")
+        var socket = io('http://localhost:666?mobile='+ mobile);
+        $('#join').click(function(){
+            socket.emit('join', {room_id: '183347713581565764374222', name: '123'});
+        })
+        $('form').submit(function(){
+          socket.emit('groupMsgNotify-c', {room_id: '183347713581565764374222',type:0,content: $('#m').val(),describe: 'test', send_mobile: mobile });
+          $('#m').val('');
+          return false;
+        });
+        socket.on('groupMsgNotify', function(data){
+          console.log(data)
+          $('#messages').append($('<li>').text(data.content));
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+        console.log(socket.id)
+        socket.on('connect', ()=>{
+          console.log(socket)
+        })
+      });
+
+     
+    </script>
+  </body>
+</html>

@@ -31,8 +31,8 @@ function deleteRoom(room_id, mobile, callback){
     })
 }
 function updateRoom(status, room_id, mobile,callback){
-    con.query('UPDATE chat_room SET status = ? WHERE room_id = ? AND mobile = ?', [status, room_id, mobile], function(){
-
+    con.query('UPDATE chat_room SET status = ? WHERE room_id = ? AND mobile = ?', [status, room_id, mobile], function(err, result){
+        callback && callback(err, result)
     })
 }
 

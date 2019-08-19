@@ -27,6 +27,7 @@ function deleteHistory(room_id,id, callback){
         callback && callback(err, result)
     })
 }
+
 module.exports =  function (app, fn) {
     app.get('/getChatHistory', function(req, res){
         const { room_id } = req.query
@@ -71,3 +72,6 @@ module.exports =  function (app, fn) {
         })
     })
 }
+// module.exports = {
+//     insertHistory,
+// }
