@@ -35,6 +35,15 @@ const router = new Router({
             requireAuth: false
           }
         },
+        {
+          path: '/music',
+          name: 'music',
+          component: resolve => require(['@/page/music/music'], resolve),
+          meta: {
+            requireAuth: false,
+            title: 'music'
+          }
+        },
         //  动态
         {
           path: '/trends',
@@ -51,12 +60,6 @@ const router = new Router({
           component: resolve => require(['@/page/personal/personal'], resolve)
         }
       ]
-    },
-    //  音乐
-    {
-      path: '/music',
-      name: 'music',
-      component: resolve => require(['@/page/music/music'], resolve)
     },
     {
       path: '/musiclist',

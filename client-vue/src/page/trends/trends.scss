@@ -1,0 +1,56 @@
+.chat-list{
+    width:100%;
+    height:100%;
+    overflow-y: auto;
+  }
+.unbind-doctor-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .24rem;
+    border-bottom: 1px solid #E9E9E9;
+  }
+
+  .doctor-headImg {
+    width: .96rem;
+    height: .96rem;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    &:after {
+      display: block;
+      content: '';
+      width: 7px;
+      height: 7px;
+      background-color: #DCDFE7;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      bottom: 0;
+      transform: translateY(50%);
+      border-radius: 50%;
+    }
+
+    &.online:after {
+      background-color: #B8E986;
+    }
+  }
+
+  .friend-name{
+    flex: 1;
+    padding-left: .16rem;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: .34rem;
+    color: #222;
+    line-height: 1.5;
+  }
+

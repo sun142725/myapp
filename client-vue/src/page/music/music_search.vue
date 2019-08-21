@@ -1,6 +1,6 @@
 <template>
     <div class="view-no">
-        <x-header :left-options="{backText: ''}">搜索</x-header>
+        <v-header title="搜索"></v-header>
         <search
                 v-model="value"
                 position="absolute"

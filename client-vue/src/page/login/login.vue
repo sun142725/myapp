@@ -2,7 +2,7 @@
   <div class="view-no">
     <XHeader :left-options="{backText: ''}">登录</XHeader>
     <group style="margin: 0.2rem 0">
-      <x-input title="手机号" is-type="china-mobile" placeholder="请输入手机号" v-model="form.username" :min="11" :max="11"></x-input>
+      <x-input title="手机号" is-type="china-mobile" placeholder="请输入手机号" v-model="form.mobile" :min="11" :max="11"></x-input>
       <x-input title="登录密码" type="password" placeholder="请输入密码" v-model="form.password" :min="6" :max="16"></x-input>
     </group>
     <div style="width:80%;margin: 1rem auto;" class="vux-1px-l">
@@ -12,15 +12,15 @@
 </template>
 <script>
 import { XInput, Group, XButton, XHeader } from 'vux'
-import { LOGIN_IN } from 'store/login'
-import {mapActions} from 'vuex'
+import { mapActions } from 'vuex'
+import { login } from '@/api/user'
 export default {
   name: 'login',
   components: { XInput, Group, XButton, XHeader },
   data: function () {
     return {
       form: {
-        username: '',
+        mobile: '',
         password: ''
       }
     }
@@ -28,24 +28,23 @@ export default {
   mounted: function () {
   },
   methods: {
-    ...mapActions([LOGIN_IN]),
+    ...mapActions(['setUser']),
     login: function () {
-      this.http.register({...this.form})
+      login({...this.form})
         .then(res => res.data)
         .then(data => {
           console.log(data)
-          if (data.code === '000000') {
-            alert(1)
-            this.LOGIN_IN(data.body)
+          if (data.code === 0) {
+            this.setUser(data.body)
             localStorage.setItem('token', data.token)
+            localStorage.setItem('mobile', data.body.mobile)
             let redirect = decodeURIComponent(this.$route.query.redirect || '/')
-            console.log(redirect)
-            this.$router.push({
+            this.$router.replace({
               path: redirect
             })
           } else {
             this.$vux.toast.show({
-              text: data.msg,
+              text: data.describe,
               type: 'text'
             })
           }

@@ -1,13 +1,14 @@
 var md5 = require('md5-base64')
 const { getUserRooms, updateRoom } = require('./router/room/sql')
-const { insertHistory } = require('./router/chat_room_history/sql')
+const { insertHistory } = require('./router/chat_history/sql')
 function handRoomId(roomId){
     return md5(roomId)
 }
 var arrAllSocket = {};
 function sendToRoom(socket, data){
-    const { room_id, type, content, describe, send_mobile } = data
-    insertHistory(room_id, type, content, describe = '', send_mobile, function(err, result){
+    const { room_id, type, content, describe = '', send_mobile } = data
+    insertHistory(room_id, type, content, describe, send_mobile, function(err, result){
+        console.log(err, result)
         if(!err){
             socket.to(room_id).emit('groupMsgNotify', {
                 room_id: room_id,
@@ -19,6 +20,7 @@ function sendToRoom(socket, data){
         }
     })
 }
+//  socket加入用户已加入的群聊
 function joinUserRooms(socket,  mobile){
     getUserRooms(mobile, function(err, result){
         if(err){
@@ -55,7 +57,7 @@ module.exports = function (io){
                 socket.join(room_id, function (result) {
                     socket.emit('groupMsgNotify', {room_id: room_id, content: '房间创建成功，快来聊天吧！', describe: '', type: 'system'})
                 })
-            } else {
+            } else { //  需要获取房间类型 判断是否可加入
                 socket.join(room_id, function () {
                     socket.emit('groupMsgNotify', {room_id: room_id, content: '房间加入成功，快来聊天吧！', type: 'system', name: data.name})
                 })
@@ -81,5 +83,8 @@ module.exports = function (io){
                 }
         
           });
+    })
+    io.on('disconnection', function(socket){
+        //  断开链接
     })
 }

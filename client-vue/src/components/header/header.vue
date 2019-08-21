@@ -1,6 +1,7 @@
 <style lang="scss" scoped>
 .header {
   display: flex;
+  height: .88rem;
   justify-content: space-between;
   align-items: center;
   align-content: center;
@@ -8,7 +9,7 @@
   text-align: center;
   background: #fff;
   width: 100%;
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #e8e8e8;
   transition: opacity ease 0.5s;
   padding: 0 0.3rem;
   &.fromNative {

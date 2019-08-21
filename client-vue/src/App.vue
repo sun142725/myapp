@@ -6,9 +6,29 @@
 
 <script>
 import UnderNav from './page/home/underNav'
+import { getUserInfo } from '@/api/user.js'
+import { mapActions } from 'vuex'
 export default {
   name: 'App',
-  components: {UnderNav}
+  components: {UnderNav},
+  mounted: function () {
+    if (localStorage.getItem('token') && localStorage.getItem('mobile')) {
+      this.getUserInfo()
+    }
+  },
+  methods: {
+    ...mapActions(['setUser']),
+    getUserInfo () {
+      getUserInfo({mobile: localStorage.mobile})
+        .then(res => {
+          console.log(res.data)
+          if (res.data.code === 0) {
+            this.setUser(res.data.body)
+            console.log(this.user)
+          }
+        })
+    }
+  }
 }
 </script>
 <style lang="less">

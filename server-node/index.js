@@ -37,7 +37,7 @@ app.all('*', function(req, res, next) {
 });
 const PERSONAL = 'personal_center'
 app.use(function(req, res, next){
-    console.log(req.url)
+    console.log(req.method)
     //  路由拦截验证token
     if(req.url.split('/')[1] === PERSONAL){
         jwt.verify(req.headers.token, 'token', function(err, decoded){
@@ -49,6 +49,9 @@ app.use(function(req, res, next){
                     describe: ERROR_CODE['700001'],
                 })
             } else {
+                if(req.method == 'POST'){
+                    
+                }
                 console.log(decoded.mobile)
                 next()
             }

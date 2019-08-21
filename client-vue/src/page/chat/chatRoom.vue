@@ -16,6 +16,7 @@
 import {mapState} from 'vuex'
 import ChatHistory from './components/chat-history'
 import { getRoomMember } from '@/api/chat.js'
+import mySocket from '@/utils/socket.js'
 export default {
   name: 'chatroom',
   components: { ChatHistory },
@@ -28,10 +29,22 @@ export default {
   mounted: function () {
     console.log('111')
     this.getRoomMember()
+    console.log(mySocket)
+    mySocket.login({
+      mobile: '18334771358'
+    }, null, function () {
+      console.log('连接成功')
+    })
   },
   methods: {
     sendMessage (type = 'text', message) {
       // socket.emit('sendMsg', this.msg)
+      mySocket.sendMsg({
+        type: 'text',
+        content: this.msg,
+        room_id: '183347713581565764374222',
+        send_mobile: '18334771358'
+      })
       this.message = ''
     },
     //  上传图片
@@ -63,7 +76,7 @@ export default {
         })
     }
   },
-  computed: mapState({user: state => state.login})
+  computed: mapState({user: state => state.user})
 }
 </script>
 <style lang="scss" scoped="">

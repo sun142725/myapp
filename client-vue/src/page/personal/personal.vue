@@ -9,7 +9,6 @@
       <div>年龄：{{user.age}}</div>
       <group>
         <cell :title="'My Account'" :value="'Protected'" @click.native="onClick"></cell>
-        <cell :title="'Money'" @click.native="onClick" :is-loading="!money" :value="money"></cell>
         <cell :title="'Withdraw'" disabled is-link></cell>
       </group>
       <group>
@@ -24,27 +23,30 @@
 <script>
 import { getUserInfo } from '@/api/user.js'
 import { Cell, Group } from 'vux'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'personal',
   components: { Cell, Group },
   data () {
     return {
-      user: {}
     }
   },
   mounted: function () {
     this.getUserInfo()
   },
   methods: {
+    ...mapActions(['setUser']),
     getUserInfo () {
-      getUserInfo({mobile: '18334771358'})
+      getUserInfo({mobile: this.user.mobile})
         .then(res => {
           console.log(res.data)
           if (res.data.code === 0) {
-            this.user = res.data.body
+            this.setUser(res.data.body)
+            console.log(this.user)
           }
         })
     }
-  }
+  },
+  computed: mapState({user: state => state.user.user})
 }
 </script>
