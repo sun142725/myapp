@@ -15,7 +15,8 @@ module.exports = function (app, fn) {
     app.post('/profile', upload.single('avatar'), function(req, res, next){
          res.status(200).json({
              code: 0,
-             url: 'http://' + req.headers.host + '/images/' + req.file.filename
+             downurl: req.protocol + '://' + req.headers.host + '/images/' + req.file.filename,
+             url: req.protocol + '://' + req.headers.host + '/public/upload/image/' + req.file.filename
          })
      })
      app.get('/images/*', function(req, res){

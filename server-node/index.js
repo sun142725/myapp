@@ -37,7 +37,7 @@ app.all('*', function(req, res, next) {
 });
 const PERSONAL = 'personal_center'
 app.use(function(req, res, next){
-    console.log(req.method)
+    console.log('111', req.baseUrl)
     //  路由拦截验证token
     if(req.url.split('/')[1] === PERSONAL){
         jwt.verify(req.headers.token, 'token', function(err, decoded){
@@ -50,7 +50,7 @@ app.use(function(req, res, next){
                 })
             } else {
                 if(req.method == 'POST'){
-                    
+
                 }
                 console.log(decoded.mobile)
                 next()

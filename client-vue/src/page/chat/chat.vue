@@ -1,23 +1,30 @@
 <template>
   <div class="view">
-  <div class="chat-list">
-    <div class="unbind-doctor-item" v-for="(v, i) in chatList" :key="i" @click="pushRoom">
-      <div class="doctor-headImg">
-        <img src="../../assets/img/ss_hair.jpg" alt="">
+    <v-header :isBack=false>
+      <div slot="left" style="color: red">
+        tororo
       </div>
-      <ul>
-        <li>
-            <span>{{v.type == 0 ? v.friend_name : v.type == 1? v.room_name : '大象医生'}}</span>
-            <span>{{v.last_news.time}}</span>
-          </li>
+      <div slot="right" style="color: red">
+      </div>
+    </v-header>
+    <div class="chat-list">
+      <div class="unbind-doctor-item" v-for="(v, i) in chatList" :key="i" @click="pushRoom(v)">
+        <div class="doctor-headImg">
+          <img src="../../assets/img/ss_hair.jpg" alt="">
+        </div>
+        <ul>
           <li>
-              <span>{{v.last_news.content || '大象医生指定医院'}}</span>
-          </li>
-        </ul>
+              <span>{{v.type == 0 ? v.friend_name : v.type == 1? v.room_name : '大象医生'}}</span>
+              <span>{{v.last_news.time}}</span>
+            </li>
+            <li>
+                <span>{{v.last_news.content || ' '}}</span>
+            </li>
+          </ul>
+      </div>
+      <div @click="pushNews">anniu</div>
+      <div @click="pushNewxinxi">news</div>
     </div>
-    <div @click="pushNews">anniu</div>
-    <div @click="pushNewxinxi">news</div>
-  </div>
   </div>
 </template>
 <script>
@@ -32,9 +39,10 @@ export default {
     console.log(this)
   },
   methods: {
-    ...mapActions(['addChatHistory']),
-    pushRoom () {
-      this.$router.push('/chatroom')
+    ...mapActions(['addChatHistory', 'changeChatLocation']),
+    pushRoom (data) {
+      this.changeChatLocation(data)
+      this.$router.push({path: '/chatroom', room_id: data.room_id})
     },
     pushNews () {
       var roomId = Math.random() > 0.5 ? '123123' : '123'
@@ -55,10 +63,4 @@ export default {
 </script>
 <style lang="scss" scoped="">
 @import './chat.scss';
-.view{
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 </style>

@@ -50,3 +50,6 @@ export default {
   computed: mapState({user: state => state.user.user})
 }
 </script>
+<style lang="scss">
+@import './personal.scss';
+</style>

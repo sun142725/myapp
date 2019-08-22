@@ -36,6 +36,7 @@ export default {
             return obj
         },
         unshiftChatList(state, obj){
+            console.log('obj', obj)
             state.chatList.unshift(obj)
         },
         clearMessage(state, message) {
@@ -46,16 +47,22 @@ export default {
         addMessage({ commit, state }, param) {
 
         },
-        async addChatHistory({  commit, state }, param) {
+        async addChatHistory({  dispatch, commit, state }, param) {
             commit('addChatHistory', param)
+            dispatch('changeChatLocation', param)
+        },
+        changeChatLocation({ commit, state }, param){
             var index = state.chatList.findIndex(v=>v.room_id == param.room_id)
             var obj = state.chatList[index] || Object.create(null);
+            console.log(param)
+            obj.last_news = param.chatNews || obj.last_news || {}
+            obj.type = param.type
+            param.type == 0 ? (obj.friend_name = param.friend_name || param.nickName) : (obj.room_name = param.room_name)
+            
             if(index == -1){
                 obj.room_id = param.room_id
-                obj.last_news = param.chatNews
                 commit('unshiftChatList', obj)
             } else {
-                obj.last_news = param.chatNews
                 if(index > 0){
                     commit('deleteChatList', index)
                     commit('unshiftChatList', obj)

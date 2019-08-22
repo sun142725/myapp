@@ -1,6 +1,7 @@
 <template>
   <div class="view">
-    这是首页
+    <v-header :isBack='false' title="home page"></v-header>
+    <div>Hellow world</div>
   </div>
 </template>
 <script>

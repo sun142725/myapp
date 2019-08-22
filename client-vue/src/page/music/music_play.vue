@@ -16,6 +16,7 @@ export default{
     // this.songUrl = `http://ws.stream.qqmusic.qq.com/${this.$route.query.songid}.m4a?fromtag=46`
     const { songmid, vkey, guid, uin } = this.$route.query
     this.songUrl = `http://dl.stream.qqmusic.qq.com/M500${songmid}.mp3?vkey=${vkey}&guid=${guid}&uin=${uin}&fromtag=53`
+    this.songUrl = `http://180.153.119.151/amobile.music.tc.qq.com/C400${songmid}.m4a?guid=${guid}&vkey=${vkey}&uin=0&fromtag=66`
   },
   mounted: function () {
     // var id = this.$route.query.songid

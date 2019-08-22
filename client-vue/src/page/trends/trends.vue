@@ -6,7 +6,7 @@
       </div>
     </v-header>
     <div class="chat-list">
-      <div class="unbind-doctor-item" v-for="(v, i) in friendList" :key="i" @click="gotoChatRoom(v.room_id)">
+      <div class="unbind-doctor-item" v-for="(v, i) in friendList" :key="i" @click="gotoChatRoom(v)">
         <div class="doctor-headImg">
           <img src="../../assets/img/ss_hair.jpg" alt="">
         </div>
@@ -31,7 +31,7 @@ export default {
     this.getMyFriend()
   },
   methods: {
-    ...mapActions([]),
+    ...mapActions(['changeChatLocation']),
     ...mapMutations(['getFriend']),
     getMyFriend () {
       console.log(this.user)
@@ -43,8 +43,9 @@ export default {
           }
         })
     },
-    gotoChatRoom (roomId) {
-      this.$router.replace({path: '/chatroom', query: {room_id: roomId}})
+    gotoChatRoom (data) {
+      this.changeChatLocation({...data, type: 0})
+      this.$router.replace({path: '/chatroom', query: {room_id: data.roomId}})
     }
   },
   computed: mapState({friendList: state => state.friends.friendList, user: state => state.user.user})

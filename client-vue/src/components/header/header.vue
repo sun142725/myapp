@@ -53,7 +53,7 @@
 <template>
   <header class="header">
     <div v-if="!this.$slots.left && isBack" class="left" v-on:click="goBack"></div>
-    <div v-if="!this.$slots.left && !isBack"></div>
+    <div v-if="!this.$slots.left && !isBack" class="right"></div>
     <slot name="left"></slot>
     <div v-if="!this.$slots.title" class="title">{{ title ? title : $route.meta.title}}</div>
     <slot name="title"></slot>
