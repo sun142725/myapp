@@ -24,10 +24,11 @@ axios.interceptors.response.use(
 )
 
 function bindqs (data) {
-  if (JSON.stringify(data).indexOf('{') === 0) {
-    return qs.stringify(data)
-  } else {
+  console.log(data instanceof FormData)
+  if (data instanceof FormData) {
     return data
+  } else {
+    return qs.stringify(data)
   }
 }
 let post = (url, data) => {

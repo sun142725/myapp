@@ -1,6 +1,6 @@
 <template>
   <ul class="chat-history" @click.self="showPdf">
-    <li v-for="(message, index) in messages" :key="index">
+    <li v-for="(message, index) in messageHistory" :key="index">
       <h6>{{message.time | formatTime}}</h6>
       <div class="custom"></div>
       <div class="message-core">
@@ -10,7 +10,7 @@
         <div class="content" :class="message.isSend ? 'right' : 'left'">
           <span v-if="message.type=='text'">{{message.content}}</span>
           <div class="content-image" v-else-if="message.type == 'image'">
-            <img @click.stop="showImg(message)" v-lazy="message.content" alt />
+            <img @click.stop="showImg(message)" :src="message.content" alt />
           </div>
           <div class="content-file" v-else-if="message.type == 'file'">
             <a
@@ -46,7 +46,9 @@ export default {
       patientHeadImg: require('../../../assets/img/load_chat_icon.png')
     }
   },
-  mounted: function () {},
+  mounted: function () {
+    console.log(this.$route)
+  },
   methods: {
     showPdf (content) {
       pdf(content)
@@ -58,12 +60,16 @@ export default {
   },
   computed: {
     ...mapState({
-      messages: state => state.chatStore.messages
+      // messages: state => state.chatStore.chatHistory[Vue.$router.query.room_id]
     }),
     imagesArr: function () {
-      return this.messages.filter(v => {
+      return this.messageHistory.filter(v => {
         return v.type === 'image' && (v.src = v.content)
       })
+    },
+    messageHistory: function () {
+      console.log('store', this.$store.state.chatStore.chatHistory)
+      return this.$store.state.chatStore.chatHistory[this.$route.query.room_id]
     }
   },
   destroyed: function () {

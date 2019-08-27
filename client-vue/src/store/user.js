@@ -4,7 +4,7 @@
 /* eslint-disable */
 export default {
     state: {
-        user: JSON.parse(localStorage.user) || {}
+        user: JSON.parse(localStorage.getItem('user')) || {}
     },
     mutations: {
         setUser (state, user) {

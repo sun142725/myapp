@@ -15,7 +15,7 @@
         <ul>
           <li>
               <span>{{v.type == 0 ? v.friend_name : v.type == 1? v.room_name : '大象医生'}}</span>
-              <span>{{v.last_news.time}}</span>
+              <span>{{v.last_news.time | formatTime}}</span>
             </li>
             <li>
                 <span>{{v.last_news.content || ' '}}</span>
@@ -29,8 +29,10 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
+import { formatTime } from './js/index'
 export default {
   name: 'chat',
+  filters: { formatTime },
   data: function () {
     return {
     }
@@ -41,8 +43,9 @@ export default {
   methods: {
     ...mapActions(['addChatHistory', 'changeChatLocation']),
     pushRoom (data) {
-      this.changeChatLocation(data)
-      this.$router.push({path: '/chatroom', room_id: data.room_id})
+      // this.changeChatLocation(data)
+      console.log(data, data.room_id)
+      this.$router.push({path: '/chatroom', query: {room_id: data.room_id}})
     },
     pushNews () {
       var roomId = Math.random() > 0.5 ? '123123' : '123'

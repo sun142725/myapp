@@ -8,14 +8,14 @@
         <input class="send-text" type="text" v-model="message" placeholder="请输入文字内容" maxlength="100">
         <img @click="uploadFile" src="../../assets/img/icon_img.png" alt="">
         <img @click="sendMessage('text', message)" src="../../assets/img/icon_send.png" alt="">
-        <input ref="uploadFile" @change="getFile" v-show="false" type="file" name="image" accept="image/*">
+        <input ref="uploadFile" @change="getFile" v-show="false" type="file" name="avatar" accept="image/*">
     </div>
   </div>
 </template>
 <script>
 import {mapState} from 'vuex'
 import ChatHistory from './components/chat-history'
-import { getRoomMember } from '@/api/chat.js'
+import { getRoomMember, uploadChatPic } from '@/api/chat.js'
 import mySocket from '@/utils/socket.js'
 export default {
   name: 'chatroom',
@@ -40,8 +40,8 @@ export default {
     sendMessage (type = 'text', message) {
       // socket.emit('sendMsg', this.msg)
       mySocket.sendMsg({
-        type: 'text',
-        content: this.msg,
+        type: type,
+        content: message,
         room_id: '183347713581565764374222',
         send_mobile: '18334771358'
       })
@@ -52,19 +52,24 @@ export default {
       this.$refs.uploadFile.click()
     },
     //  获取上传图片并发送消息
-    getFile () {
+    getFile (e) {
+      console.log(e.target.files[0])
       console.log('111', this.$refs.uploadFile.files)
       let _this = this
+      console.dir(this.$refs.uploadFile)
       var formData = new FormData()
-      formData.append('code', _this.visitRecord.userCode)
-      formData.append('modularType', 'DPC')
-      formData.append('file', this.$refs.uploadFile.files[0])
+      // formData.append('code', _this.visitRecord.userCode)
+      formData.append('avatar', this.$refs.uploadFile.files[0])
+      formData.append('type', '213')
+      formData.append('gid', 'aaaaa')
+      formData.append('uid', 'aaaaa')
+      console.log(formData.has('avatar'))
       //  掉接口
-      this.uploadFile(formData)
+      uploadChatPic(formData)
         .then(res => {
           console.log('res', res.data.filePath)
           this.$refs.uploadFile.value = ''
-          _this.sendMessage('image', res.data.filePath)
+          _this.sendMessage('image', res.data.url)
         })
     },
     getRoomMember () {

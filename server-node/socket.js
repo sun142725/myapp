@@ -15,7 +15,9 @@ function sendToRoom(socket, data){
                 content: content,
                 describe: describe,
                 send_mobile: send_mobile,
-                type: type
+                type: type,
+                time: new Date().getTime()/1000,
+                id: result.insertId
             })
         }
     })

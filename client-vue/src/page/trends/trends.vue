@@ -45,7 +45,8 @@ export default {
     },
     gotoChatRoom (data) {
       this.changeChatLocation({...data, type: 0})
-      this.$router.replace({path: '/chatroom', query: {room_id: data.roomId}})
+      console.log(data)
+      this.$router.replace({path: '/chatroom', query: {room_id: data.room_id}})
     }
   },
   computed: mapState({friendList: state => state.friends.friendList, user: state => state.user.user})

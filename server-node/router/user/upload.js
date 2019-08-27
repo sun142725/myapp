@@ -12,7 +12,8 @@ var storage = multer.diskStorage({
 });
 var upload = multer({storage: storage})
 module.exports = function (app, fn) {
-    app.post('/profile', upload.single('avatar'), function(req, res, next){
+    app.post('/uploadChatPic', upload.single('avatar'), function(req, res, next){
+        console.log(req.file)
          res.status(200).json({
              code: 0,
              downurl: req.protocol + '://' + req.headers.host + '/images/' + req.file.filename,

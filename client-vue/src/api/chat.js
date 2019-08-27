@@ -44,3 +44,9 @@ export function getRoomMember(data){
         room_id: data.room_id || '',
     })
 }
+
+//  查询群里聊成员
+export function uploadChatPic(data){
+    console.log(data)
+    return http.post('/uploadChatPic',data)
+}
