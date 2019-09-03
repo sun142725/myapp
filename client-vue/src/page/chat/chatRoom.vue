@@ -5,7 +5,17 @@
             <chat-history backUrl='/chat'></chat-history>
         </div>
     <div class="control">
-        <input class="send-text" type="text" v-model="message" placeholder="请输入文字内容" maxlength="100">
+        <!-- <input class="send-text" type="text" v-model="message" placeholder="请输入文字内容" maxlength="100"> -->
+        <textarea class="send-text" ref="sendText"
+            @cut="resizeHeight"
+            @change="resizeHeight"
+            @paste="resizeHeight"
+            @drop="resizeHeight"
+            @keydown="resizeHeight"
+            type="text"
+            v-model="message"
+            placeholder="请输入文字内容"
+            maxlength="100"></textarea>
         <img @click="uploadFile" src="../../assets/img/icon_img.png" alt="">
         <img @click="sendMessage('text', message)" src="../../assets/img/icon_send.png" alt="">
         <input ref="uploadFile" @change="getFile" v-show="false" type="file" name="avatar" accept="image/*">
@@ -39,6 +49,7 @@ export default {
   methods: {
     sendMessage (type = 'text', message) {
       // socket.emit('sendMsg', this.msg)
+      this.$refs.sendText.focus()
       mySocket.sendMsg({
         type: type,
         content: message,
@@ -79,6 +90,13 @@ export default {
             console.log('roomMenber', res.data.body)
           }
         })
+    },
+    // 动态修改textarea高度
+    resizeHeight () {
+      setTimeout(() => {
+        this.$refs.sendText.style.height = 30 / (750 / window.innerWidth) + 'px'
+        this.$refs.sendText.style.height = this.$refs.sendText.scrollHeight + 'px'
+      }, 0)
     }
   },
   computed: mapState({user: state => state.user})

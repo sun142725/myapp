@@ -4,19 +4,15 @@
       <div slot="right" style="color: #333;">设置</div>
     </v-header>
     <div>
-      <img :src="user.headUrl" alt="">
-      <div>昵称：{{user.nickName}}</div>
-      <div>年龄：{{user.age}}</div>
-      <group>
-        <cell :title="'My Account'" :value="'Protected'" @click.native="onClick"></cell>
-        <cell :title="'Withdraw'" disabled is-link></cell>
-      </group>
-      <group>
-        <cell title="昵称">
-          <span slot="title" style="color:#333;text-align:left;">昵称</span>
-          <span slot="value">{{user.nickName}}</span>
-        </cell>
-      </group>
+      <div class="user-head">
+        <div class="user-point">
+          <img :src="user.headUrl || defaultUrl" alt="">
+        </div>
+        <div class="user-name">
+          <div>昵称：{{user.nickName}}</div>
+          <div class="user-account">账号：{{user.mobile}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +25,7 @@ export default {
   components: { Cell, Group },
   data () {
     return {
+      defaultUrl: require('../../assets/img/ss_hair.jpg')
     }
   },
   mounted: function () {

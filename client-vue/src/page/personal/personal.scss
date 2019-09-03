@@ -1,0 +1,31 @@
+.user-head{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: .2rem;
+    .user-point{
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: .1rem;
+        overflow: hidden;
+        img{
+            display: block;
+            width: 100%;
+        }
+    }
+    .user-name{
+        flex: 1;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding:0 .2rem;
+        div{
+            text-align: left;
+            font-size: .26rem;
+        }
+        .user-account{
+        }
+    }
+}

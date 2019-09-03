@@ -34,6 +34,19 @@
             background-color: #fff;
             font-size: .26rem;
         }
+        >textarea.send-text{
+            flex: 1;
+            outline: none;
+            min-height: .80rem;
+            height: .80rem;
+            max-height: 2rem;
+            border-radius: .08rem;
+            padding: .16rem .20rem;
+            border:none;
+            background-color: #fff;
+            font-size: .26rem;
+            line-height: 1.5;
+        }
         >button{
             outline: none;
             border: none;
