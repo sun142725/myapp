@@ -29,7 +29,8 @@ export default {
       zoom: {
         offset: {x: 0, y: 0}
       }, // 监控滚动高度
-      viewPageNum:1
+      viewPageNum:1,
+      loadPage: Object.create(null)
     }
   },
   mounted: function () {
@@ -53,22 +54,33 @@ export default {
       let _this = this
       this.pdfDoc.getPage(num).then(function (page) {
         var viewport = page.getViewport(1.2)
-        // console.log(page, viewport)
-        let canvas = document.getElementById('the-canvas' + num)
-        let scale1 = document.body.offsetWidth/viewport.width
-        canvas.height = viewport.height
-        canvas.width = viewport.width
-        canvas.style.transform = 'scale(' + scale1 + ')'
-        canvas.style.display = 'block'
-        let canvasNum = document.querySelector('.canvas' + num)
-        canvasNum.style.height = canvasNum.offsetWidth / (viewport.viewBox[2]/viewport.viewBox[3]) + 'px'
-        // canvasNum.style.height = (viewport.height * window.screen.width/750 + 20) + 'px'
-        // console.dir(canvasNum)
+        let canvasEle = document.getElementById('the-canvas' + num)
+        // let scale1 = document.body.offsetWidth/viewport.width
+        // canvas.height = viewport.height
+        // canvas.width = viewport.width
+        // canvas.style.transform = 'scale(' + scale1 + ')'
+        // canvas.style.display = 'block'
+        if(num == 1){
+          let canvasList = document.getElementsByTagName('canvas')
+          let scale1 = document.body.offsetWidth/viewport.width
+          for (let index = 0; index < canvasList.length; index++) {
+            const canvas = canvasList[index];
+            canvas.height = viewport.height
+            canvas.width = viewport.width
+            canvas.style.transform = 'scale(' + scale1 + ')'
+            var canvasBox = canvas.parentElement
+            canvasBox.style.height = canvasBox.offsetWidth / (viewport.viewBox[2]/viewport.viewBox[3]) + 'px'
+          }
+          _this.initPinchZoom()
+        }
+        // let canvasNum = document.querySelector('.canvas' + num)
+        // canvasNum.style.height = canvasNum.offsetWidth / (viewport.viewBox[2]/viewport.viewBox[3]) + 'px'
+ 
            
         
         // Render PDF page into canvas context
         var renderContext = {
-          canvasContext: canvas.getContext('2d'),
+          canvasContext: canvasEle.getContext('2d'),
           viewport: viewport
         }
         var renderTask = page.render(renderContext)
@@ -76,7 +88,10 @@ export default {
         // Wait for rendering to finish
         renderTask.promise.then(function () {
           _this.pageRendering = false
-           _this.onNextPage()
+          _this.loadPage[num] = true
+          if(num < 3){
+            _this.onNextPage()
+          }
           if (_this.pageNumPending !== null) {
             // New page rendering is pending
             this.renderPage(_this.pageNumPending)
@@ -156,15 +171,22 @@ export default {
         this.zoom.initialOffset = {x: 0, y: 0}
         this.zoom.zoomFactor = zoomer
         console.dir( this.zoom)
-        store.commit('updateLoadingStatus', {isLoading: false})
+        // store.commit('updateLoadingStatus', {isLoading: false})
     }
   },
   watch: {
     'zoom.offset.y': function(newVal, oldVal){
+      console.log('>>>>>>>>>>>>>',this.zoom)
       var h = document.querySelector('.canvas1').offsetHeight || 505
+      h = h/this.zoom.lastScale
       // console.log(document.querySelector('.canvas1').offsetHeight, h, this.zoom.offset.y/h)
       this.viewPageNum = Math.ceil(this.zoom.offset.y/h) || 1
-      
+    },
+    viewPageNum: function(newVal, oldVal){
+      console.log(this.loadPage, newVal, this.pageNum)
+      if(this.viewPageNum > (this.pageNum-1)){
+        this.onNextPage()
+      }
     }
   },
 }

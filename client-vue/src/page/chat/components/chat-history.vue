@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     showPdf (content) {
-      pdf(content)
+      pdf('https://main.qcloudimg.com/raw/document/product/pdf/647_32228_cn.pdf')
     },
     showImg (message) {
       var index = this.imagesArr.findIndex(v => v.id === message.id)
