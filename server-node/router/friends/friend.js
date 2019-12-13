@@ -3,11 +3,11 @@ const ERROR_CODE = require('../../public/error-code')
 const return7000 = require('../com_return_err').return7000
 /**
  * 
- * @param {*} room_id 
- * @param {*} mobile 
- * @param {*} friend_mobile 
- * @param {*} status 
- * @param {*} callback 
+ * @param {* String } room_id 
+ * @param {* String } mobile 
+ * @param {* String } friend_mobile 
+ * @param {* Int } status 
+ * @param {* Fn } callback 
  */
 function createTemporaryF(room_id, mobile, friend_mobile, status = 1, callback){
     con.query('INSERT INTO friend(id, room_id,mobile, friend_mobile, status, is_invitation) VALUES(0, ?,?,?,?, 1),(0, ?,?,?,?, 0)', [room_id, mobile, friend_mobile, status, room_id, friend_mobile, mobile, status], function(err, result){

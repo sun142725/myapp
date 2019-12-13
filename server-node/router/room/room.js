@@ -126,7 +126,7 @@ module.exports = function (app, fn) {
         const {room_id} = req.body
         getRoomMember(room_id, function(err, result){
             if(err){
-                return7000
+                return7000(res)
             } else {
                 return res.status(200).json({
                     code: 0,
