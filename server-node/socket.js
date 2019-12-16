@@ -67,14 +67,16 @@ module.exports = function (io){
         })
         socket.on('leave', function(data){
             leaveRoom(socket, data)
+            socket.emit('groupMsgNotify', {room_id: room_id, content: data.name+ '离开了房间', type: 'system', name: data.name})
         })
         socket.on('groupMsgNotify-c', function (data) {
             sendToRoom(socket, data)
+            socket.emit('groupMsgNotify', data)
         })
         //  C2C[toAccount]
         socket.on('c2cMsgNotify', function(data){
-            console.log('接收到了')
-            var target = arrAllSocket[to];
+            console.log('接收到了', data)
+            var target = arrAllSocket[data[to]];
             console.log(target)
                 if(target)
                 {
