@@ -15,7 +15,7 @@
     "jsonp": "^0.2.1",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
-    "node-sass": "^4.7.2",
+    "node-sass": "^7.0.0",
     "qs": "^6.5.1",
     "sass-loader": "^6.0.6",
     "socket.io-client": "^2.1.1",
