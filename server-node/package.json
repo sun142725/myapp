@@ -12,7 +12,7 @@
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
-    "jsonwebtoken": "^8.2.2",
+    "jsonwebtoken": "^9.0.0",
     "md5-base64": "0.0.3",
     "mongoose": "^5.0.9",
     "multer": "^1.4.1",
